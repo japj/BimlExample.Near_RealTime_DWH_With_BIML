@@ -1,0 +1,61 @@
+//create Source connection and database
+
+<#@ template language="C#" hostspecific="true"#>
+<#@ import namespace="System.Data" #>
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+<!-- Tables.biml -->
+<# var sourceConnection = (AstDbConnectionNode)RootNode.Connections["Source"]; #>
+<# var importedSchema = sourceConnection.ImportDB(); #>
+
+    <Tables>
+        <# foreach (var tableNode in importedSchema.TableNodes) { #>
+            <#=tableNode.GetBiml()#>
+        <# } #>
+    </Tables>
+</Biml>
+
+//add criterias
+"Sales", "", ImportOptions.ExcludeForeignKey | ImportOptions.ExcludeColumnDefault | ImportOptions.ExcludeViews
+
+//Create meta connection
+
+<# var MetaConnection = (AstDbConnectionNode)RootNode.Connections["Meta"];
+var tableNamesToImport = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, "SELECT TableName FROM TableNames").Rows.OfType<System.Data.DataRow>().Select(r => r[0].ToString());
+ #>
+
+//Add filterstring before )
+.Where(item => tableNamesToImport.Contains(item.Name)).OrderBy(item => item.Name)
+
+
+//Add replace of ID to BK and meta columns
+.Replace("ID", "BK")
+
+
+
+//Add package
+
+//loop (remember to close it)
+<#foreach( var table in RootNode.Tables) { #>
+
+//name
+Import_<#=table.Name #>
+
+//add a new table to metadata
+Currency
+
+//Move on to MDS
+Create the model, dataconnections and staging
+show the rest in explore
+
+Business rules that show validations
+Must be between
+connection string pattern
+Workflows / hack the SPs
+From MDS to the finished BIML projects
+Show the architecture in BIDS // deltaload // Fact, early arriving facts // SPs in Mgmt studio
+
+Back to PPT
+Finish
+
+

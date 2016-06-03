@@ -1,0 +1,22 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Packages>
+	  <#foreach( var table in RootNode.Tables) { #>	
+        <Package Name="Import_<#=table.Name #>">
+            <Tasks>
+                <Dataflow Name="DataflowTask1">
+                    <PrecedenceConstraints>
+                        <Inputs>
+                            <Input OutputPathName="ExecuteSQLTask2.Output" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+                    <Transformations>
+                        <OleDbSource Name="OLEDBSource1"  ConnectionName="Source"/>
+                        <OleDbDestination Name="OLEDBDestination2" ConnectionName="Source" />
+                    </Transformations>
+                </Dataflow>
+                <ExecuteSQL Name="ExecuteSQLTask2"  ConnectionName="Source"/>
+            </Tasks>
+        </Package>
+		<# } #>
+    </Packages>
+</Biml>

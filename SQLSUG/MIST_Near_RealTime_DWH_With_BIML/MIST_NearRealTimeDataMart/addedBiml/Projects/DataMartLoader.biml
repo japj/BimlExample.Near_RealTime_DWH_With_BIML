@@ -1,0 +1,10 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Projects>
+        <PackageProject Name="DataMartLoader">
+            <Connections>
+                <Connection ConnectionName="AdventureWorksDataMart2012" />
+                <Connection ConnectionName="AdventureWorksStaging2012" />
+            </Connections>
+        </PackageProject>
+    </Projects>
+</Biml>

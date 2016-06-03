@@ -1,0 +1,6 @@
+<Configuration xmlns="http://schemas.varigence.com/Settings.xsd">
+    <Settings>
+        <StringSetting Name="OpenDocumentWindows">TV:addedBiml\Tables\Table1.biml|SN:Meta|</StringSetting>
+        <StringSetting Name="NotificationStatus">[{"CreatedDateTime":"\/Date(1418155380358+0100)\/","Description":"","ExpirationDateTime":"\/Date(1420833780358+0100)\/","IsDismissed":false,"NotificationImportance":0,"SessionOnly":false,"Title":"Mist 3.2 is now available from Varigence.","UniqueId":"MistVersionAvailable_3.2"}]</StringSetting>
+    </Settings>
+</Configuration>

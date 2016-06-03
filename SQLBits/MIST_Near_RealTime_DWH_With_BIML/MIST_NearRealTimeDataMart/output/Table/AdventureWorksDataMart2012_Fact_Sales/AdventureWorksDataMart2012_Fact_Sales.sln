@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "AdventureWorksDataMart2012_Fact_Sales", "AdventureWorksDataMart2012_Fact_Sales.dtproj", "{F64BEACC-DCF8-4FE5-A57F-971AC16FC114}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F64BEACC-DCF8-4FE5-A57F-971AC16FC114}.Development|Default.ActiveCfg = Development
+		{F64BEACC-DCF8-4FE5-A57F-971AC16FC114}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

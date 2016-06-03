@@ -1,0 +1,6 @@
+<Configuration xmlns="http://schemas.varigence.com/Settings.xsd">
+    <Settings>
+        <StringSetting Name="OpenDocumentWindows">SN:DownloadAdventureWorks_Customer|TV:addedBiml\Packages\SSIS_Staging.biml|SN:DownloadAdventureWorks_SalesOrderDetail|</StringSetting>
+        <StringSetting Name="NotificationStatus">[{"CreatedDateTime":"\/Date(1425122670309+0100)\/","Description":"","ExpirationDateTime":"\/Date(1427541870306+0100)\/","IsDismissed":false,"NotificationImportance":0,"SessionOnly":false,"Title":"Mist 3.2 is now available from Varigence.","UniqueId":"MistVersionAvailable_3.2"}]</StringSetting>
+    </Settings>
+</Configuration>

@@ -1,0 +1,1000 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable
+  DTS:CreationDate="03/05/2015 12:04:28"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="W8RRN"
+  DTS:CreatorName="rrn"
+  DTS:DTSID="{56E4A758-B658-4EFA-8883-8926EAD99E72}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion=""
+  DTS:LocaleID="1030"
+  DTS:ObjectName="Dim_SalesTerritory"
+  DTS:refId="Package"
+  DTS:VersionBuild="0"
+  DTS:VersionGUID="{76DF0F52-279C-4299-B7F5-649B71507C0D}"
+  DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DTSID="{60633678-F850-4D30-8D9A-39C0927ED4B9}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create DestMergeTable"
+      DTS:refId="Package\Create DestMergeTable"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="AdventureWorksDataMart2012"
+          SQLTask:SqlStatementSource="EXEC Proc_CreateDestMergeTable Dim, SalesTerritory" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:DTSID="{4FA4871A-FD3D-433A-9172-43D78029511F}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadDimension"
+      DTS:refId="Package\LoadDimension"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              name="Source"
+              refId="Package\LoadDimension\Source"
+              usesDispositions="true"
+              version="7">
+              <connections>
+                <connection
+                  connectionManagerID="{5DA06293-A83A-4FE9-9C9F-C394D4954381}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksStaging2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\LoadDimension\Source.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output
+                  name="Output"
+                  refId="Package\LoadDimension\Source.Outputs[Output]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="Dummy"
+                      refId="Package\LoadDimension\Source.Outputs[Output].ExternalColumns[Dummy]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadDimension\Source.Outputs[Output].ExternalColumns[SalesTerritoryBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="SalesYTD"
+                      refId="Package\LoadDimension\Source.Outputs[Output].ExternalColumns[SalesYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="50"
+                      name="TerritoryName"
+                      refId="Package\LoadDimension\Source.Outputs[Output].ExternalColumns[TerritoryName]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadDimension\Source.Outputs[Output].ExternalColumns[Dummy]"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[Dummy]"
+                      name="Dummy"
+                      refId="Package\LoadDimension\Source.Outputs[Output].Columns[Dummy]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadDimension\Source.Outputs[Output].ExternalColumns[SalesTerritoryBK]"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadDimension\Source.Outputs[Output].ExternalColumns[SalesYTD]"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesYTD]"
+                      name="SalesYTD"
+                      refId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesYTD]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadDimension\Source.Outputs[Output].ExternalColumns[TerritoryName]"
+                      length="50"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[TerritoryName]"
+                      name="TerritoryName"
+                      refId="Package\LoadDimension\Source.Outputs[Output].Columns[TerritoryName]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadDimension\Source.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\Source.Outputs[Error].Columns[Dummy]"
+                      name="Dummy"
+                      refId="Package\LoadDimension\Source.Outputs[Error].Columns[Dummy]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\Source.Outputs[Error].Columns[SalesTerritoryBK]"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadDimension\Source.Outputs[Error].Columns[SalesTerritoryBK]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\LoadDimension\Source.Outputs[Error].Columns[SalesYTD]"
+                      name="SalesYTD"
+                      refId="Package\LoadDimension\Source.Outputs[Error].Columns[SalesYTD]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadDimension\Source.Outputs[Error].Columns[TerritoryName]"
+                      name="TerritoryName"
+                      refId="Package\LoadDimension\Source.Outputs[Error].Columns[TerritoryName]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\Source.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadDimension\Source.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\Source.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadDimension\Source.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+								
+																SELECT
+								1 as Dummy
+																,TerritoryBK AS SalesTerritoryBK
+																,SalesYTD AS SalesYTD
+																,Name AS TerritoryName
+																FROM AdventureWorks.SalesTerritory
+																
+								</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{671046B0-AA63-4C9F-90E4-C06E0B710CE3}"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;5"
+              name="DimMergeLookup"
+              refId="Package\LoadDimension\DimMergeLookup"
+              usesDispositions="true"
+              version="6">
+              <connections>
+                <connection
+                  connectionManagerID="{59A2FC50-5F29-41A2-AAA0-307FD76C88B7}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksDataMart2012]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection"
+                  refId="Package\LoadDimension\DimMergeLookup.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  name="Source_Output_DimMergeLookup"
+                  refId="Package\LoadDimension\DimMergeLookup.Inputs[Source_Output_DimMergeLookup]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadDimension\DimMergeLookup.Inputs[Source_Output_DimMergeLookup].Columns[SalesTerritoryBK]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">SalesTerritoryBK</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn"></property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Match"
+                  refId="Package\LoadDimension\DimMergeLookup.Outputs[Match]"
+                  synchronousInputId="Package\LoadDimension\DimMergeLookup.Inputs[Source_Output_DimMergeLookup]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i8"
+                      errorOrTruncationOperation="CopyColumn"
+                      lineageId="Package\LoadDimension\DimMergeLookup.Outputs[Match].Columns[SalesTerritory_ID]"
+                      name="SalesTerritory_ID"
+                      refId="Package\LoadDimension\DimMergeLookup.Outputs[Match].Columns[SalesTerritory_ID]"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SalesTerritory_ID</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="NoMatch"
+                  refId="Package\LoadDimension\DimMergeLookup.Outputs[NoMatch]"
+                  synchronousInputId="Package\LoadDimension\DimMergeLookup.Inputs[Source_Output_DimMergeLookup]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </output>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadDimension\DimMergeLookup.Outputs[Error]"
+                  synchronousInputId="Package\LoadDimension\DimMergeLookup.Inputs[Source_Output_DimMergeLookup]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\DimMergeLookup.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadDimension\DimMergeLookup.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\DimMergeLookup.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadDimension\DimMergeLookup.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+								
+								Select SalesTerritory_ID
+																                               ,SalesTerritoryBK
+																																FROM Dim.SalesTerritory
+								
+								</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (
+								
+								Select SalesTerritory_ID
+																                               ,SalesTerritoryBK
+																																FROM Dim.SalesTerritory
+								
+								) [refTable] where [refTable].[SalesTerritoryBK] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;
+  &lt;referenceColumns&gt;
+    &lt;referenceColumn name="SalesTerritory_ID" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="SalesTerritoryBK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0" /&gt;
+  &lt;/referenceColumns&gt;
+&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\LoadDimension\Source.Outputs[Output].Columns[SalesTerritoryBK]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              name="Dest"
+              refId="Package\LoadDimension\Dest"
+              usesDispositions="true"
+              version="4">
+              <connections>
+                <connection
+                  connectionManagerID="{59A2FC50-5F29-41A2-AAA0-307FD76C88B7}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksDataMart2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\LoadDimension\Dest.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="DimMergeLookup_NoMatch_Dest"
+                  refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="numeric"
+                      name="SalesYTD"
+                      precision="2"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[SalesYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="50"
+                      name="TerritoryName"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[TerritoryName]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[SalesTerritoryBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="SalesTerritory_ID"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[SalesTerritory_ID]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbDate"
+                      name="ValidTo"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[ValidTo]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbDate"
+                      name="ValidFrom"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[ValidFrom]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="bool"
+                      name="IsRowCurrent"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[IsRowCurrent]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      externalMetadataColumnId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[SalesTerritoryBK]"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].Columns[SalesTerritoryBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="SalesYTD"
+                      externalMetadataColumnId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[SalesYTD]"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesYTD]"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].Columns[SalesYTD]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="TerritoryName"
+                      externalMetadataColumnId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].ExternalColumns[TerritoryName]"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[TerritoryName]"
+                      refId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest].Columns[TerritoryName]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadDimension\Dest.Outputs[Error]"
+                  synchronousInputId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\Dest.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadDimension\Dest.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\Dest.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadDimension\Dest.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Dim.SalesTerritory</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{B594E9A8-4351-4939-891C-CFE1AB93E925}"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              name="UNION_ErrorsToMerge"
+              refId="Package\LoadDimension\UNION_ErrorsToMerge"
+              version="1">
+              <inputs>
+                <input
+                  name="DimMergeLookup_Match_UNION_ErrorsToMerge"
+                  refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[DimMergeLookup_Match_UNION_ErrorsToMerge]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="SalesTerritory_ID"
+                      lineageId="Package\LoadDimension\DimMergeLookup.Outputs[Match].Columns[SalesTerritory_ID]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[DimMergeLookup_Match_UNION_ErrorsToMerge].Columns[SalesTerritory_ID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesTerritory_ID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="Dummy"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[Dummy]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[DimMergeLookup_Match_UNION_ErrorsToMerge].Columns[Dummy]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[Dummy]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[DimMergeLookup_Match_UNION_ErrorsToMerge].Columns[SalesTerritoryBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesTerritoryBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="SalesYTD"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesYTD]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[DimMergeLookup_Match_UNION_ErrorsToMerge].Columns[SalesYTD]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesYTD]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="TerritoryName"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[TerritoryName]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[DimMergeLookup_Match_UNION_ErrorsToMerge].Columns[TerritoryName]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[TerritoryName]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+                <input
+                  hasSideEffects="true"
+                  name="Dest_Error_UNION_ErrorsToMerge"
+                  refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[Dest_Error_UNION_ErrorsToMerge]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="ErrorCode"
+                      lineageId="Package\LoadDimension\Dest.Outputs[Error].Columns[ErrorCode]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[Dest_Error_UNION_ErrorsToMerge].Columns[ErrorCode]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[ErrorCode]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="ErrorColumn"
+                      lineageId="Package\LoadDimension\Dest.Outputs[Error].Columns[ErrorColumn]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[Dest_Error_UNION_ErrorsToMerge].Columns[ErrorColumn]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[ErrorColumn]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="Dummy"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[Dummy]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[Dest_Error_UNION_ErrorsToMerge].Columns[Dummy]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[Dummy]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[Dest_Error_UNION_ErrorsToMerge].Columns[SalesTerritoryBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesTerritoryBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="SalesYTD"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[SalesYTD]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[Dest_Error_UNION_ErrorsToMerge].Columns[SalesYTD]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesYTD]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="TerritoryName"
+                      lineageId="Package\LoadDimension\Source.Outputs[Output].Columns[TerritoryName]"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[Dest_Error_UNION_ErrorsToMerge].Columns[TerritoryName]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[TerritoryName]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+                <input
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Input1"
+                  refId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[Input1]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  name="Output"
+                  refId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i8"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesTerritory_ID]"
+                      name="SalesTerritory_ID"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesTerritory_ID]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[Dummy]"
+                      name="Dummy"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[Dummy]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesTerritoryBK]"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesTerritoryBK]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesYTD]"
+                      name="SalesYTD"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesYTD]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[TerritoryName]"
+                      name="TerritoryName"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[TerritoryName]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              name="Dest_ToMerge"
+              refId="Package\LoadDimension\Dest_ToMerge"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="4">
+              <connections>
+                <connection
+                  connectionManagerID="{59A2FC50-5F29-41A2-AAA0-307FD76C88B7}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksDataMart2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\LoadDimension\Dest_ToMerge.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="UNION_ErrorsToMerge_Output_Dest_ToMerge"
+                  refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="numeric"
+                      name="SalesYTD"
+                      precision="2"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[SalesYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="50"
+                      name="TerritoryName"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[TerritoryName]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[SalesTerritoryBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="SalesTerritory_ID"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[SalesTerritory_ID]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbDate"
+                      name="ValidTo"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[ValidTo]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbDate"
+                      name="ValidFrom"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[ValidFrom]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="bool"
+                      name="IsRowCurrent"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[IsRowCurrent]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      externalMetadataColumnId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[SalesTerritoryBK]"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].Columns[SalesTerritoryBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="SalesYTD"
+                      externalMetadataColumnId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[SalesYTD]"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[SalesYTD]"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].Columns[SalesYTD]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="TerritoryName"
+                      externalMetadataColumnId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].ExternalColumns[TerritoryName]"
+                      lineageId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output].Columns[TerritoryName]"
+                      refId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge].Columns[TerritoryName]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadDimension\Dest_ToMerge.Outputs[Error]"
+                  synchronousInputId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\Dest_ToMerge.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadDimension\Dest_ToMerge.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadDimension\Dest_ToMerge.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadDimension\Dest_ToMerge.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Etl.SalesTerritory</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path
+              endId="Package\LoadDimension\DimMergeLookup.Inputs[Source_Output_DimMergeLookup]"
+              name="Source_Output_DimMergeLookup"
+              refId="Package\LoadDimension.Paths[Source_Output_DimMergeLookup]"
+              startId="Package\LoadDimension\Source.Outputs[Output]"></path>
+            <path
+              endId="Package\LoadDimension\Dest_ToMerge.Inputs[UNION_ErrorsToMerge_Output_Dest_ToMerge]"
+              name="UNION_ErrorsToMerge_Output_Dest_ToMerge"
+              refId="Package\LoadDimension.Paths[UNION_ErrorsToMerge_Output_Dest_ToMerge]"
+              startId="Package\LoadDimension\UNION_ErrorsToMerge.Outputs[Output]"></path>
+            <path
+              endId="Package\LoadDimension\Dest.Inputs[DimMergeLookup_NoMatch_Dest]"
+              name="DimMergeLookup_NoMatch_Dest"
+              refId="Package\LoadDimension.Paths[DimMergeLookup_NoMatch_Dest]"
+              startId="Package\LoadDimension\DimMergeLookup.Outputs[NoMatch]"></path>
+            <path
+              endId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[DimMergeLookup_Match_UNION_ErrorsToMerge]"
+              name="DimMergeLookup_Match_UNION_ErrorsToMerge"
+              refId="Package\LoadDimension.Paths[DimMergeLookup_Match_UNION_ErrorsToMerge]"
+              startId="Package\LoadDimension\DimMergeLookup.Outputs[Match]"></path>
+            <path
+              endId="Package\LoadDimension\UNION_ErrorsToMerge.Inputs[Dest_Error_UNION_ErrorsToMerge]"
+              name="Dest_Error_UNION_ErrorsToMerge"
+              refId="Package\LoadDimension.Paths[Dest_Error_UNION_ErrorsToMerge]"
+              startId="Package\LoadDimension\Dest.Outputs[Error]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DTSID="{764F37E4-6B83-46D4-8F18-BB5951B8C802}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SCDMerge"
+      DTS:refId="Package\SCDMerge"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="AdventureWorksDataMart2012"
+          SQLTask:SqlStatementSource="EXEC Proc_GenericMerge @SourceSchema= 'ETL, @SourceTable=SalesTerritory, @TargetSchema='Dim', @TargetTable=SalesTerritory" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DTSID="{8D9A5DB7-6724-4B7C-8ECB-4F2C2EABD335}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DropTempTable"
+      DTS:refId="Package\DropTempTable"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="AdventureWorksDataMart2012"
+          SQLTask:SqlStatementSource="Drop table etl.SalesTerritory" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:CreationName=""
+      DTS:DTSID="{CB03F7DA-5009-4A57-8C9A-36BA071DF20D}"
+      DTS:From="Package\Create DestMergeTable"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_Create DestMergeTable_To_LoadDimension"
+      DTS:refId="Package.PrecedenceConstraints[Constraint_Create DestMergeTable_To_LoadDimension]"
+      DTS:To="Package\LoadDimension"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint
+      DTS:CreationName=""
+      DTS:DTSID="{72AC5815-6714-4EC8-AEEB-C59B980B33F0}"
+      DTS:From="Package\LoadDimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_LoadDimension_To_SCDMerge"
+      DTS:refId="Package.PrecedenceConstraints[Constraint_LoadDimension_To_SCDMerge]"
+      DTS:To="Package\SCDMerge"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint
+      DTS:CreationName=""
+      DTS:DTSID="{B2F4E426-A282-46F6-94FD-158AEEF04DB3}"
+      DTS:From="Package\SCDMerge"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_SCDMerge_To_DropTempTable"
+      DTS:refId="Package.PrecedenceConstraints[Constraint_SCDMerge_To_DropTempTable]"
+      DTS:To="Package\DropTempTable"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+</DTS:Executable>

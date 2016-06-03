@@ -1,0 +1,3 @@
+<ConnectionManager p1:ObjectName="MetaData" p1:DTSID="{66359C2A-0577-4C01-8DFE-81F92232D091}" p1:refId="MetaData" p1:CreationName="OLEDB" xmlns:p1="www.microsoft.com/SqlServer/Dts" xmlns="www.microsoft.com/SqlServer/Dts">
+    <p1:ObjectData><DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ConnectionString="Provider=SQLOLEDB;Data Source=.;Integrated Security=SSPI;Initial Catalog=MDS"></DTS:ConnectionManager></p1:ObjectData>
+</ConnectionManager>

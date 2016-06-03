@@ -1,0 +1,90 @@
+﻿<#@ template tier="1" #> 
+<#@ import namespace="System.Data" #>
+<#@ import namespace="Varigence.BIML.CoreLowerer.SchemaManagement" #>
+<#
+    var MetaConnection = (AstDbConnectionNode)RootNode.Connections["MetaData"];  
+    var TargetConnection = (AstDbConnectionNode)RootNode.Connections["AdventureWorksDataMart2012"];  
+    string TableMetaDataCommand =    					 
+							   "SELECT \n"
+							+   "TableId = Code,\n"    
+							+   "SchemaName = TableType,\n"    
+                            +   "TableName =  Name \n"
+                            +   "FROM mdm.mdsDataMartTables \n"
+                            +   "WHERE IsActive = 1;";
+ 
+    DataTable TableMetaData = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, TableMetaDataCommand); 
+
+	//Column metadata for dataconversions and lookups	
+    string ColumnMetaDataCommand =    					  
+							"SELECT \n" 
+						+   "TableId = Table_Code,\n "  
+						+   "ColumnName = COALESCE(SurrogateKeyLookupTable+'_ID',Name, SourceColumnName),\n"  
+						+   "DataType = CASE WHEN SurrogateKeyLookupTable IS NOT NULL THEN 'Int64' ELSE upper(substring(ISNULL(DestinationColumnDataType,SourceColumnDataType), 1, 1)) + (substring(ISNULL(DestinationColumnDataType,SourceColumnDataType), 2, LEN(ISNULL(DestinationColumnDataType,SourceColumnDataType)))) END, \n"  
+						+   "DataTypeLength = ISNULL(DestinationColumnLength,SourceColumnLength), \n" 
+						+   "SourceColumnPrecision = IsNull(SourceColumnPrecision,0),\n"
+						+   "SCDType  = Case when IsKeyColumn = 1 then 'Key' else case SlowlyChangingChangeType when 1 then 'Update' When 2 then 'Historical' else 'Other' END END \n"
+						+   "FROM mdm.mdsDataMartTableColumns \n"
+						+   "WHERE IsActive = 1"
+						+	"UNION \n"
+						+	"SELECT \n"  
+						+   "TableId = TableName_Code,\n "  
+						+   "ColumnName = ISNULL(SurrogateKeyLookupTable_Name+'_ID',Name),\n"   
+						+   "DataType = CASE WHEN SurrogateKeyLookupTable_Name IS NOT NULL THEN 'Int64' ELSE upper(substring(DestinationColumnDataType, 1, 1)) + (substring(DestinationColumnDataType, 2, LEN(DestinationColumnDataType))) END, \n"  
+						+   "DataTypeLength = DestinationColumnLength, \n" 
+						+   "SourceColumnPrecision = 2,\n"
+						+   "SCDType  = case SlowlyChangingChangeType when 1 then 'Update' When 2 then 'Historical' else 'Other' END \n"
+						+   "FROM mdm.mdsDataMartDerivedColumns \n"
+						+   "WHERE IsActive = 1"
+						+	"UNION \n"
+						+	"SELECT \n" 
+						+   "TableId = LookupTable_Code,\n "  
+						+   "ColumnName = ISNULL(SurrogateKeyLookupTable+'_ID',LC.Name),\n"   
+						+   "DataType = CASE WHEN SurrogateKeyLookupTable IS NOT NULL THEN 'Int64' ELSE upper(substring(ColumnDataType, 1, 1)) + (substring(ColumnDataType, 2, LEN(ColumnDataType))) END, \n"  
+						+   "DataTypeLength = DestinationColumnLength, \n" 
+						+   "SourceColumnPrecision = 2,\n"
+						+   "SCDType  = case SlowlyChangingChangeType when 1 then 'Update' When 2 then 'Historical' else 'Other' END \n"
+						+   "FROM mdm.mdsDataMartLookupTablesColumns LC INNER JOIN mdm.mdsDataMartLookupTables L \n"
+						+   "ON LC.LookupTable_Code = L.Code and LC.IsActive = L.IsActive \n"
+						+   "WHERE L.IsActive = 1 AND LC.ColumnType = 'Output';";
+   
+							
+DataTable ColumnMetaDataTable = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, ColumnMetaDataCommand);
+#>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+	  
+	<Tables>
+        <#  foreach(DataRow TableRow in TableMetaData.Rows) {
+				
+		  string filterExp = "TableId = '" + TableRow["TableId"] + "'";
+		  DataRow[] ColumnMetaData;
+		  ColumnMetaData = ColumnMetaDataTable.Select(filterExp,null,DataViewRowState.CurrentRows); 	
+			#>
+		<Table Name="<#=TableRow["TableName"] #>" SchemaName="AdventureWorksDataMart2012.<#=TableRow["SchemaName"]#>">
+			<Columns>
+				 <#  foreach(DataRow ColumnRow in ColumnMetaData) { #>
+					<Column Name="<#=ColumnRow["ColumnName"] #>" DataType="<#=ColumnRow["DataType"] #>" IsNullable="true" <# if ( (string)ColumnRow["DataType"] == "String" || (string)ColumnRow["DataType"] == "Decimal" )  { #>Length="<#=ColumnRow["DataTypeLength"] #>" <#} #>  <# if ((string)ColumnRow["DataType"] == "Decimal" ) { #> Precision="<#=ColumnRow["SourceColumnPrecision"] #>" <#} #> ScdType="<#=ColumnRow["SCDType"] #>">
+					</Column>
+			     <# } #>
+					<Column Name="<#=TableRow["TableName"] #>_ID" DataType="Int64" IdentitySeed="1" IdentityIncrement="1" IsNullable="false" ScdType="SurrogateKey">
+                    </Column>
+					<Column Name="ValidTo" DataType="Date" IsNullable="true" ScdType="Audit">
+                    </Column>
+					<Column Name="ValidFrom" DataType="Date" IsNullable="false" ScdType="Audit">
+                    </Column>
+					<Column Name="IsRowCurrent" DataType="Boolean" IsNullable="false" ScdType="Audit">
+                    </Column>					
+			  </Columns>
+			  <Keys>
+				  <PrimaryKey Clustered="true" Name="<#=TableRow["TableName"] #>_PK" Unique="true">
+					  <Columns>
+						  <Column ColumnName="<#=TableRow["TableName"] #>_ID"></Column>
+                      </Columns>
+				   </PrimaryKey>	  
+              </Keys>
+	     </Table>   
+	
+        <# } #> 
+
+		 
+    </Tables>       
+</Biml>

@@ -1,0 +1,3 @@
+<ConnectionManager p1:ObjectName="AdventureWorksDataMart2012" p1:DTSID="{AFDC0968-BF5B-45D6-B80E-4DED0DF152AE}" p1:refId="Package.ConnectionManagers[AdventureWorksDataMart2012]" p1:CreationName="OLEDB" xmlns:p1="www.microsoft.com/SqlServer/Dts" xmlns="www.microsoft.com/SqlServer/Dts">
+    <p1:ObjectData><DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ConnectionString="Provider=SQLNCLI11;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=AdventureWorksDataMart2012"></DTS:ConnectionManager></p1:ObjectData>
+</ConnectionManager>

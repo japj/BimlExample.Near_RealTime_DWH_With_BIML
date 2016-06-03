@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <IsPackageEditorCompactDisplayModeEnabled>False</IsPackageEditorCompactDisplayModeEnabled>
+    <IsTemplateAutoUpdatePreviewEnabled>True</IsTemplateAutoUpdatePreviewEnabled>
+    <IsTemplateCheckBimlSyntaxEnabled>True</IsTemplateCheckBimlSyntaxEnabled>
+    <IsTemplateAutoFormatXmlEnabled>True</IsTemplateAutoFormatXmlEnabled>
+    <AddedXmlFilesPath>addedBiml</AddedXmlFilesPath>
+    <CompilationOutputPath>output</CompilationOutputPath>
+    <DocumentationOutputPath>documentation</DocumentationOutputPath>
+    <DocumentationTemplatePath />
+    <IsWarnAsErrorEnabled>False</IsWarnAsErrorEnabled>
+    <IsCleanOutputFolderEnabled>False</IsCleanOutputFolderEnabled>
+    <IsCleanDocumentationFolderEnabled>False</IsCleanDocumentationFolderEnabled>
+    <SqlVersion>SqlServer2008R2</SqlVersion>
+    <SsasVersion>Ssas2008R2</SsasVersion>
+    <SsisVersion>Ssis2008R2</SsisVersion>
+    <UseProjectDeploymentModel>False</UseProjectDeploymentModel>
+    <ExtraCommandLineOptions />
+    <EmitDocumentationAnnotations>True</EmitDocumentationAnnotations>
+    <EmitCodeCommentAnnotations>False</EmitCodeCommentAnnotations>
+    <EmitTagAnnotations>False</EmitTagAnnotations>
+    <EmitEmittableAssets>True</EmitEmittableAssets>
+    <EmitIncludeAssets>True</EmitIncludeAssets>
+    <DefaultConnectionName />
+    <LoweringTemplateConfigurationPath />
+    <SelectedConfigurationFilePath />
+    <SelectedFrameworkFilePath />
+    <MistVersion>3.0.0.0</MistVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <RootFolder Include=" ">
+      <RootFolderId>0</RootFolderId>
+    </RootFolder>
+  </ItemGroup>
+  <ItemGroup>
+    <Live Include="addedBiml\Connections\Meta.biml">
+      <RootFolderId>0</RootFolderId>
+    </Live>
+    <Live Include="addedBiml\Connections\Source.biml">
+      <RootFolderId>0</RootFolderId>
+    </Live>
+    <Live Include="addedBiml\Packages\Package1.biml">
+      <RootFolderId>0</RootFolderId>
+    </Live>
+    <Live Include="addedBiml\Tables\Table1.biml">
+      <RootFolderId>0</RootFolderId>
+    </Live>
+    <None Include="SqlsatSlovenia.bimlproj">
+      <RootFolderId>0</RootFolderId>
+    </None>
+  </ItemGroup>
+</Project>

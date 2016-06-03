@@ -1,0 +1,18 @@
+﻿<#@ template language="C#" hostspecific="true"#>
+<#@ import namespace="System.Data" #>
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd"> 
+<!-- Tables.biml --> 
+<# var sourceConnection = (AstDbConnectionNode)RootNode.Connections["Source"]; #>
+<# var importedSchema = sourceConnection.ImportDB("Sales", "", ImportOptions.ExcludeForeignKey | ImportOptions.ExcludeColumnDefault | ImportOptions.ExcludeViews); #>
+
+<# var MetaConnection = (AstDbConnectionNode)RootNode.Connections["Meta"];
+var tableNamesToImport = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, "SELECT TableName FROM TableNames").Rows.OfType<System.Data.DataRow>().Select(r => r[0].ToString());
+ #>	
+	
+    <Tables>
+        <# foreach (var tableNode in importedSchema.TableNodes.Where(item => tableNamesToImport.Contains(item.Name)).OrderBy(item => item.Name)) { #>
+            <#=tableNode.GetBiml().Replace("ID", "BK")#>
+        <# } #>
+    </Tables>
+</Biml>

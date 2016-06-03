@@ -1,0 +1,2333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable
+  DTS:CreationDate="03/05/2015 11:57:41"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="W8RRN"
+  DTS:CreatorName="rrn"
+  DTS:DTSID="{47A0CBBB-45EA-4AD7-8B21-169FC41E9517}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion=""
+  DTS:LocaleID="1030"
+  DTS:ObjectName="Fact_Sales"
+  DTS:refId="Package"
+  DTS:VersionBuild="0"
+  DTS:VersionGUID="{4528C1E7-77EF-422D-8905-542B506E424D}"
+  DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DTSID="{2C2EE2DD-AD78-4293-84EE-0A307AFB11E1}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate DestTable"
+      DTS:refId="Package\Truncate DestTable"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="AdventureWorksDataMart2012"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE Fact.Sales " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:DTSID="{87B31FB0-A85C-4CB6-ADB4-69C07D57791A}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadFact"
+      DTS:refId="Package\LoadFact"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              name="Source"
+              refId="Package\LoadFact\Source"
+              usesDispositions="true"
+              version="7">
+              <connections>
+                <connection
+                  connectionManagerID="{65EBA399-8B09-4917-8FDE-F97C056F67F7}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksStaging2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\LoadFact\Source.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output
+                  name="Output"
+                  refId="Package\LoadFact\Source.Outputs[Output]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesOrderBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[SalesOrderBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesOrderDetailBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[SalesOrderDetailBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="25"
+                      name="CarrierTrackingNumber"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[CarrierTrackingNumber]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i2"
+                      name="OrderQty"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="ProductBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[ProductBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="UnitPrice"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="UnitPriceDiscount"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[UnitPriceDiscount]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="numeric"
+                      name="LineTotal"
+                      precision="38"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[LineTotal]"
+                      scale="6"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="CustomerBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[CustomerBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[SalesTerritoryBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="128"
+                      name="Comment"
+                      refId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[Comment]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[SalesOrderBK]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[SalesOrderBK]"
+                      name="SalesOrderBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[SalesOrderBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[SalesOrderDetailBK]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      name="SalesOrderDetailBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[CarrierTrackingNumber]"
+                      length="25"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      name="CarrierTrackingNumber"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[OrderQty]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[OrderQty]"
+                      name="OrderQty"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[OrderQty]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[ProductBK]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[ProductBK]"
+                      name="ProductBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[ProductBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[UnitPrice]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPrice]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[UnitPriceDiscount]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPriceDiscount]"
+                      name="UnitPriceDiscount"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPriceDiscount]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[LineTotal]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[LineTotal]"
+                      name="LineTotal"
+                      precision="38"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[LineTotal]"
+                      scale="6"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[ModifiedDate]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[CustomerBK]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[CustomerBK]"
+                      name="CustomerBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[CustomerBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[SalesTerritoryBK]"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadFact\Source.Outputs[Output].ExternalColumns[Comment]"
+                      length="128"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[Comment]"
+                      name="Comment"
+                      refId="Package\LoadFact\Source.Outputs[Output].Columns[Comment]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadFact\Source.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[SalesOrderBK]"
+                      name="SalesOrderBK"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[SalesOrderBK]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[SalesOrderDetailBK]"
+                      name="SalesOrderDetailBK"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[SalesOrderDetailBK]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[CarrierTrackingNumber]"
+                      name="CarrierTrackingNumber"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[CarrierTrackingNumber]"></outputColumn>
+                    <outputColumn
+                      dataType="i2"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[OrderQty]"
+                      name="OrderQty"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[OrderQty]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[ProductBK]"
+                      name="ProductBK"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[ProductBK]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[UnitPrice]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[UnitPriceDiscount]"
+                      name="UnitPriceDiscount"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[UnitPriceDiscount]"></outputColumn>
+                    <outputColumn
+                      dataType="numeric"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[LineTotal]"
+                      name="LineTotal"
+                      precision="38"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[LineTotal]"
+                      scale="6"></outputColumn>
+                    <outputColumn
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[CustomerBK]"
+                      name="CustomerBK"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[CustomerBK]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[SalesTerritoryBK]"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[SalesTerritoryBK]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="128"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[Comment]"
+                      name="Comment"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[Comment]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Source.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadFact\Source.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+								
+								SELECT
+  D.SalesOrderBK
+, D.SalesOrderDetailBK
+, D.CarrierTrackingNumber
+, D.OrderQty
+, D.ProductBK
+, D.UnitPrice
+, D.UnitPriceDiscount
+, D.LineTotal
+, D.ModifiedDate
+, H.CustomerBK
+, H.TerritoryBK as SalesTerritoryBK
+, H.Comment
+FROM AdventureWorks.SalesOrderHeader H
+INNER JOIN AdventureWorks.SalesOrderDetail D
+ ON H.SalesOrderBK = D.SalesOrderBK
+
+								
+								</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{49928E82-9C4E-49F0-AABE-3812B82707EC}"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              name="DER Calculations"
+              refId="Package\LoadFact\DER Calculations"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  name="Source_Output_DER Calculations"
+                  refId="Package\LoadFact\DER Calculations.Inputs[Source_Output_DER Calculations]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPrice]"
+                      refId="Package\LoadFact\DER Calculations.Inputs[Source_Output_DER Calculations].Columns[UnitPrice]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPriceDiscount"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPriceDiscount]"
+                      refId="Package\LoadFact\DER Calculations.Inputs[Source_Output_DER Calculations].Columns[UnitPriceDiscount]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i2"
+                      cachedName="OrderQty"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[OrderQty]"
+                      refId="Package\LoadFact\DER Calculations.Inputs[Source_Output_DER Calculations].Columns[OrderQty]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  exclusionGroup="1"
+                  name="Output"
+                  refId="Package\LoadFact\DER Calculations.Outputs[Output]"
+                  synchronousInputId="Package\LoadFact\DER Calculations.Inputs[Source_Output_DER Calculations]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="numeric"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LoadFact\DER Calculations.Outputs[Output].Columns[LineTotal]"
+                      name="LineTotal"
+                      precision="26"
+                      refId="Package\LoadFact\DER Calculations.Outputs[Output].Columns[LineTotal]"
+                      scale="3"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(#{Package\LoadFact\Source.Outputs[Output].Columns[UnitPrice]}-#{Package\LoadFact\Source.Outputs[Output].Columns[UnitPriceDiscount]}) * #{Package\LoadFact\Source.Outputs[Output].Columns[OrderQty]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(UnitPrice-UnitPriceDiscount) * OrderQty</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadFact\DER Calculations.Outputs[Error]"
+                  synchronousInputId="Package\LoadFact\DER Calculations.Inputs[Source_Output_DER Calculations]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\DER Calculations.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadFact\DER Calculations.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\DER Calculations.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadFact\DER Calculations.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              componentClassID="{671046B0-AA63-4C9F-90E4-C06E0B710CE3}"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;5"
+              name="SKLookup_Customer"
+              refId="Package\LoadFact\SKLookup_Customer"
+              usesDispositions="true"
+              version="6">
+              <connections>
+                <connection
+                  connectionManagerID="{690A4C90-161F-4A1A-AE96-7A678277651A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksDataMart2012]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection"
+                  refId="Package\LoadFact\SKLookup_Customer.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  name="DER Calculations_Output_SKLookup_Customer"
+                  refId="Package\LoadFact\SKLookup_Customer.Inputs[DER Calculations_Output_SKLookup_Customer]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="CustomerBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[CustomerBK]"
+                      refId="Package\LoadFact\SKLookup_Customer.Inputs[DER Calculations_Output_SKLookup_Customer].Columns[CustomerBK]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CustomerBK</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn"></property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Match"
+                  refId="Package\LoadFact\SKLookup_Customer.Outputs[Match]"
+                  synchronousInputId="Package\LoadFact\SKLookup_Customer.Inputs[DER Calculations_Output_SKLookup_Customer]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i8"
+                      errorOrTruncationOperation="CopyColumn"
+                      lineageId="Package\LoadFact\SKLookup_Customer.Outputs[Match].Columns[Customer_ID]"
+                      name="Customer_ID"
+                      refId="Package\LoadFact\SKLookup_Customer.Outputs[Match].Columns[Customer_ID]"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Customer_ID</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="NoMatch"
+                  refId="Package\LoadFact\SKLookup_Customer.Outputs[NoMatch]"
+                  synchronousInputId="Package\LoadFact\SKLookup_Customer.Inputs[DER Calculations_Output_SKLookup_Customer]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </output>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadFact\SKLookup_Customer.Outputs[Error]"
+                  synchronousInputId="Package\LoadFact\SKLookup_Customer.Inputs[DER Calculations_Output_SKLookup_Customer]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\SKLookup_Customer.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadFact\SKLookup_Customer.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\SKLookup_Customer.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadFact\SKLookup_Customer.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT * FROM Dim.Customer</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT * FROM Dim.Customer) [refTable] where [refTable].[CustomerBK] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;
+  &lt;referenceColumns&gt;
+    &lt;referenceColumn name="AccountNumber" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252" /&gt;
+    &lt;referenceColumn name="CustomerBK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="Customer_ID" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="ValidTo" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="ValidFrom" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="IsRowCurrent" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0" /&gt;
+  &lt;/referenceColumns&gt;
+&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\LoadFact\Source.Outputs[Output].Columns[CustomerBK]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{671046B0-AA63-4C9F-90E4-C06E0B710CE3}"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;5"
+              name="Customer_EarlyArrivingFactsAdd"
+              refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd"
+              usesDispositions="true"
+              version="6">
+              <connections>
+                <connection
+                  connectionManagerID="{690A4C90-161F-4A1A-AE96-7A678277651A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksDataMart2012]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection"
+                  refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  name="SKLookup_Customer_NoMatch_Customer_EarlyArrivingFactsAdd"
+                  refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Inputs[SKLookup_Customer_NoMatch_Customer_EarlyArrivingFactsAdd]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="CustomerBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[CustomerBK]"
+                      refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Inputs[SKLookup_Customer_NoMatch_Customer_EarlyArrivingFactsAdd].Columns[CustomerBK]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">LookupKey</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn"></property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Match"
+                  refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Match]"
+                  synchronousInputId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Inputs[SKLookup_Customer_NoMatch_Customer_EarlyArrivingFactsAdd]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i8"
+                      errorOrTruncationOperation="CopyColumn"
+                      lineageId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Match].Columns[Customer_ID]"
+                      name="Customer_ID"
+                      refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Match].Columns[Customer_ID]"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Customer_ID</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="NoMatch"
+                  refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[NoMatch]"
+                  synchronousInputId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Inputs[SKLookup_Customer_NoMatch_Customer_EarlyArrivingFactsAdd]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </output>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Error]"
+                  synchronousInputId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Inputs[SKLookup_Customer_NoMatch_Customer_EarlyArrivingFactsAdd]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT Customer_ID, CustomerBK AS LookupKey FROM Dim.Customer </property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+								 EXEC Proc_AddEarlyArrivingFacts_Customer  @LookupKey = ?
+                             </property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;
+  &lt;referenceColumns&gt;
+    &lt;referenceColumn name="Customer_ID" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="LookupKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0" /&gt;
+  &lt;/referenceColumns&gt;
+&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\LoadFact\Source.Outputs[Output].Columns[CustomerBK]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{B594E9A8-4351-4939-891C-CFE1AB93E925}"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              name="UNION_Customer"
+              refId="Package\LoadFact\UNION_Customer"
+              version="1">
+              <inputs>
+                <input
+                  name="SKLookup_Customer_Match_UNION_Customer"
+                  refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="Customer_ID"
+                      lineageId="Package\LoadFact\SKLookup_Customer.Outputs[Match].Columns[Customer_ID]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[Customer_ID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Customer_ID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="numeric"
+                      cachedName="LineTotal"
+                      cachedPrecision="26"
+                      cachedScale="3"
+                      lineageId="Package\LoadFact\DER Calculations.Outputs[Output].Columns[LineTotal]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[LineTotal]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[LineTotal]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[SalesOrderBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[SalesOrderBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderDetailBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[SalesOrderDetailBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderDetailBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="CarrierTrackingNumber"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[CarrierTrackingNumber]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CarrierTrackingNumber]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i2"
+                      cachedName="OrderQty"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[OrderQty]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[OrderQty]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[OrderQty]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="ProductBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[ProductBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[ProductBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ProductBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPrice]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPrice]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPriceDiscount"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPriceDiscount]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[UnitPriceDiscount]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPriceDiscount]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[ModifiedDate]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[ModifiedDate]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ModifiedDate]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="CustomerBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[CustomerBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[CustomerBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CustomerBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[SalesTerritoryBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="128"
+                      cachedName="Comment"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[Comment]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer].Columns[Comment]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Comment]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+                <input
+                  hasSideEffects="true"
+                  name="Customer_EarlyArrivingFactsAdd_Match_UNION_Customer"
+                  refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="Customer_ID"
+                      lineageId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Match].Columns[Customer_ID]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[Customer_ID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Customer_ID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="numeric"
+                      cachedName="LineTotal"
+                      cachedPrecision="26"
+                      cachedScale="3"
+                      lineageId="Package\LoadFact\DER Calculations.Outputs[Output].Columns[LineTotal]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[LineTotal]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[LineTotal]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[SalesOrderBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[SalesOrderBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderDetailBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[SalesOrderDetailBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderDetailBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="CarrierTrackingNumber"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[CarrierTrackingNumber]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CarrierTrackingNumber]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i2"
+                      cachedName="OrderQty"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[OrderQty]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[OrderQty]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[OrderQty]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="ProductBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[ProductBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[ProductBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ProductBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPrice]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPrice]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPriceDiscount"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[UnitPriceDiscount]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[UnitPriceDiscount]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPriceDiscount]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[ModifiedDate]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[ModifiedDate]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ModifiedDate]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="CustomerBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[CustomerBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[CustomerBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CustomerBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[SalesTerritoryBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="128"
+                      cachedName="Comment"
+                      lineageId="Package\LoadFact\Source.Outputs[Output].Columns[Comment]"
+                      refId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer].Columns[Comment]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Comment]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+                <input
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Input1"
+                  refId="Package\LoadFact\UNION_Customer.Inputs[Input1]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  name="Output"
+                  refId="Package\LoadFact\UNION_Customer.Outputs[Output]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i8"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Customer_ID]"
+                      name="Customer_ID"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Customer_ID]"></outputColumn>
+                    <outputColumn
+                      dataType="numeric"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[LineTotal]"
+                      name="LineTotal"
+                      precision="26"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[LineTotal]"
+                      scale="3"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderBK]"
+                      name="SalesOrderBK"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderBK]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      name="SalesOrderDetailBK"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderDetailBK]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      name="CarrierTrackingNumber"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CarrierTrackingNumber]"></outputColumn>
+                    <outputColumn
+                      dataType="i2"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[OrderQty]"
+                      name="OrderQty"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[OrderQty]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ProductBK]"
+                      name="ProductBK"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ProductBK]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPrice]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPriceDiscount]"
+                      name="UnitPriceDiscount"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPriceDiscount]"></outputColumn>
+                    <outputColumn
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CustomerBK]"
+                      name="CustomerBK"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CustomerBK]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="128"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Comment]"
+                      name="Comment"
+                      refId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Comment]"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              componentClassID="{671046B0-AA63-4C9F-90E4-C06E0B710CE3}"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;5"
+              name="SKLookup_SalesTerritory"
+              refId="Package\LoadFact\SKLookup_SalesTerritory"
+              usesDispositions="true"
+              version="6">
+              <connections>
+                <connection
+                  connectionManagerID="{690A4C90-161F-4A1A-AE96-7A678277651A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksDataMart2012]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection"
+                  refId="Package\LoadFact\SKLookup_SalesTerritory.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  name="UNION_Customer_Output_SKLookup_SalesTerritory"
+                  refId="Package\LoadFact\SKLookup_SalesTerritory.Inputs[UNION_Customer_Output_SKLookup_SalesTerritory]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadFact\SKLookup_SalesTerritory.Inputs[UNION_Customer_Output_SKLookup_SalesTerritory].Columns[SalesTerritoryBK]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">SalesTerritoryBK</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn"></property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Match"
+                  refId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Match]"
+                  synchronousInputId="Package\LoadFact\SKLookup_SalesTerritory.Inputs[UNION_Customer_Output_SKLookup_SalesTerritory]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i8"
+                      errorOrTruncationOperation="CopyColumn"
+                      lineageId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Match].Columns[SalesTerritory_ID]"
+                      name="SalesTerritory_ID"
+                      refId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Match].Columns[SalesTerritory_ID]"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SalesTerritory_ID</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="NoMatch"
+                  refId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[NoMatch]"
+                  synchronousInputId="Package\LoadFact\SKLookup_SalesTerritory.Inputs[UNION_Customer_Output_SKLookup_SalesTerritory]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </output>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Error]"
+                  synchronousInputId="Package\LoadFact\SKLookup_SalesTerritory.Inputs[UNION_Customer_Output_SKLookup_SalesTerritory]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT * FROM Dim.SalesTerritory</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT * FROM Dim.SalesTerritory) [refTable] where [refTable].[SalesTerritoryBK] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;
+  &lt;referenceColumns&gt;
+    &lt;referenceColumn name="SalesYTD" dataType="DT_NUMERIC" length="0" precision="2" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="TerritoryName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="SalesTerritoryBK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="SalesTerritory_ID" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="ValidTo" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="ValidFrom" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="IsRowCurrent" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0" /&gt;
+  &lt;/referenceColumns&gt;
+&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{671046B0-AA63-4C9F-90E4-C06E0B710CE3}"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;5"
+              name="SalesTerritory_EarlyArrivingFactsAdd"
+              refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd"
+              usesDispositions="true"
+              version="6">
+              <connections>
+                <connection
+                  connectionManagerID="{690A4C90-161F-4A1A-AE96-7A678277651A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksDataMart2012]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection"
+                  refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  name="SKLookup_SalesTerritory_NoMatch_SalesTerritory_EarlyArrivingFactsAdd"
+                  refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Inputs[SKLookup_SalesTerritory_NoMatch_SalesTerritory_EarlyArrivingFactsAdd]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Inputs[SKLookup_SalesTerritory_NoMatch_SalesTerritory_EarlyArrivingFactsAdd].Columns[SalesTerritoryBK]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">LookupKey</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn"></property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Match"
+                  refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Match]"
+                  synchronousInputId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Inputs[SKLookup_SalesTerritory_NoMatch_SalesTerritory_EarlyArrivingFactsAdd]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i8"
+                      errorOrTruncationOperation="CopyColumn"
+                      lineageId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Match].Columns[SalesTerritory_ID]"
+                      name="SalesTerritory_ID"
+                      refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Match].Columns[SalesTerritory_ID]"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SalesTerritory_ID</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="NoMatch"
+                  refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[NoMatch]"
+                  synchronousInputId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Inputs[SKLookup_SalesTerritory_NoMatch_SalesTerritory_EarlyArrivingFactsAdd]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </output>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Error]"
+                  synchronousInputId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Inputs[SKLookup_SalesTerritory_NoMatch_SalesTerritory_EarlyArrivingFactsAdd]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT SalesTerritory_ID, SalesTerritoryBK AS LookupKey FROM Dim.SalesTerritory </property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+								 EXEC Proc_AddEarlyArrivingFacts_SalesTerritory  @LookupKey = ?
+                             </property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;
+  &lt;referenceColumns&gt;
+    &lt;referenceColumn name="SalesTerritory_ID" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0" /&gt;
+    &lt;referenceColumn name="LookupKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0" /&gt;
+  &lt;/referenceColumns&gt;
+&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{B594E9A8-4351-4939-891C-CFE1AB93E925}"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              name="UNION_SalesTerritory"
+              refId="Package\LoadFact\UNION_SalesTerritory"
+              version="1">
+              <inputs>
+                <input
+                  name="SKLookup_SalesTerritory_Match_UNION_SalesTerritory"
+                  refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="SalesTerritory_ID"
+                      lineageId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Match].Columns[SalesTerritory_ID]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[SalesTerritory_ID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesTerritory_ID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="Customer_ID"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Customer_ID]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[Customer_ID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Customer_ID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="numeric"
+                      cachedName="LineTotal"
+                      cachedPrecision="26"
+                      cachedScale="3"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[LineTotal]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[LineTotal]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[LineTotal]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[SalesOrderBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesOrderBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderDetailBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[SalesOrderDetailBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesOrderDetailBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="CarrierTrackingNumber"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[CarrierTrackingNumber]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[CarrierTrackingNumber]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i2"
+                      cachedName="OrderQty"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[OrderQty]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[OrderQty]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[OrderQty]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="ProductBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ProductBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[ProductBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[ProductBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPrice]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPrice]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPriceDiscount"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPriceDiscount]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[UnitPriceDiscount]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPriceDiscount]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ModifiedDate]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[ModifiedDate]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[ModifiedDate]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="CustomerBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CustomerBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[CustomerBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[CustomerBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[SalesTerritoryBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesTerritoryBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="128"
+                      cachedName="Comment"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Comment]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory].Columns[Comment]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Comment]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+                <input
+                  hasSideEffects="true"
+                  name="SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory"
+                  refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="SalesTerritory_ID"
+                      lineageId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Match].Columns[SalesTerritory_ID]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[SalesTerritory_ID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesTerritory_ID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="Customer_ID"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Customer_ID]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[Customer_ID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Customer_ID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="numeric"
+                      cachedName="LineTotal"
+                      cachedPrecision="26"
+                      cachedScale="3"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[LineTotal]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[LineTotal]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[LineTotal]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[SalesOrderBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesOrderBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderDetailBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[SalesOrderDetailBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesOrderDetailBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="CarrierTrackingNumber"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[CarrierTrackingNumber]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[CarrierTrackingNumber]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i2"
+                      cachedName="OrderQty"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[OrderQty]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[OrderQty]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[OrderQty]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="ProductBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ProductBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[ProductBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[ProductBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPrice]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPrice]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPriceDiscount"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[UnitPriceDiscount]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[UnitPriceDiscount]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPriceDiscount]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[ModifiedDate]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[ModifiedDate]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[ModifiedDate]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="CustomerBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[CustomerBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[CustomerBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[CustomerBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesTerritoryBK"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[SalesTerritoryBK]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[SalesTerritoryBK]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesTerritoryBK]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="128"
+                      cachedName="Comment"
+                      lineageId="Package\LoadFact\UNION_Customer.Outputs[Output].Columns[Comment]"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory].Columns[Comment]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Comment]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+                <input
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Input1"
+                  refId="Package\LoadFact\UNION_SalesTerritory.Inputs[Input1]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  name="Output"
+                  refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i8"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesTerritory_ID]"
+                      name="SalesTerritory_ID"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesTerritory_ID]"></outputColumn>
+                    <outputColumn
+                      dataType="i8"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Customer_ID]"
+                      name="Customer_ID"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Customer_ID]"></outputColumn>
+                    <outputColumn
+                      dataType="numeric"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[LineTotal]"
+                      name="LineTotal"
+                      precision="26"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[LineTotal]"
+                      scale="3"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesOrderBK]"
+                      name="SalesOrderBK"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesOrderBK]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      name="SalesOrderDetailBK"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesOrderDetailBK]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      name="CarrierTrackingNumber"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[CarrierTrackingNumber]"></outputColumn>
+                    <outputColumn
+                      dataType="i2"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[OrderQty]"
+                      name="OrderQty"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[OrderQty]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[ProductBK]"
+                      name="ProductBK"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[ProductBK]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPrice]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPriceDiscount]"
+                      name="UnitPriceDiscount"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPriceDiscount]"></outputColumn>
+                    <outputColumn
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[CustomerBK]"
+                      name="CustomerBK"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[CustomerBK]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesTerritoryBK]"
+                      name="SalesTerritoryBK"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[SalesTerritoryBK]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="128"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Comment]"
+                      name="Comment"
+                      refId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Comment]"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              name="Dest"
+              refId="Package\LoadFact\Dest"
+              usesDispositions="true"
+              version="4">
+              <connections>
+                <connection
+                  connectionManagerID="{690A4C90-161F-4A1A-AE96-7A678277651A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AdventureWorksDataMart2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\LoadFact\Dest.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="UNION_SalesTerritory_Output_Dest"
+                  refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="25"
+                      name="CarrierTrackingNumber"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[CarrierTrackingNumber]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="128"
+                      name="Comment"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[Comment]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="Customer_ID"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[Customer_ID]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="numeric"
+                      name="LineTotal"
+                      precision="2"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[LineTotal]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i2"
+                      name="OrderQty"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="Territory_ID"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[Territory_ID]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="numeric"
+                      name="UnitPrice"
+                      precision="2"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="numeric"
+                      name="UnitPriceDiscount"
+                      precision="2"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[UnitPriceDiscount]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="Sales_ID"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[Sales_ID]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbDate"
+                      name="ValidTo"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[ValidTo]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbDate"
+                      name="ValidFrom"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[ValidFrom]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="bool"
+                      name="IsRowCurrent"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[IsRowCurrent]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="Customer_ID"
+                      externalMetadataColumnId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[Customer_ID]"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Customer_ID]"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].Columns[Customer_ID]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="numeric"
+                      cachedName="LineTotal"
+                      cachedPrecision="26"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[LineTotal]"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[LineTotal]"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].Columns[LineTotal]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="CarrierTrackingNumber"
+                      externalMetadataColumnId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[CarrierTrackingNumber]"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].Columns[CarrierTrackingNumber]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i2"
+                      cachedName="OrderQty"
+                      externalMetadataColumnId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[OrderQty]"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[OrderQty]"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].Columns[OrderQty]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      externalMetadataColumnId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[UnitPrice]"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPrice]"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].Columns[UnitPrice]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPriceDiscount"
+                      externalMetadataColumnId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[UnitPriceDiscount]"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[UnitPriceDiscount]"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].Columns[UnitPriceDiscount]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="128"
+                      cachedName="Comment"
+                      externalMetadataColumnId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].ExternalColumns[Comment]"
+                      lineageId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output].Columns[Comment]"
+                      refId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest].Columns[Comment]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\LoadFact\Dest.Outputs[Error]"
+                  synchronousInputId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Dest.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\LoadFact\Dest.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\LoadFact\Dest.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\LoadFact\Dest.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Fact.Sales</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path
+              endId="Package\LoadFact\DER Calculations.Inputs[Source_Output_DER Calculations]"
+              name="Source_Output_DER Calculations"
+              refId="Package\LoadFact.Paths[Source_Output_DER Calculations]"
+              startId="Package\LoadFact\Source.Outputs[Output]"></path>
+            <path
+              endId="Package\LoadFact\SKLookup_Customer.Inputs[DER Calculations_Output_SKLookup_Customer]"
+              name="DER Calculations_Output_SKLookup_Customer"
+              refId="Package\LoadFact.Paths[DER Calculations_Output_SKLookup_Customer]"
+              startId="Package\LoadFact\DER Calculations.Outputs[Output]"></path>
+            <path
+              endId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Inputs[SKLookup_Customer_NoMatch_Customer_EarlyArrivingFactsAdd]"
+              name="SKLookup_Customer_NoMatch_Customer_EarlyArrivingFactsAdd"
+              refId="Package\LoadFact.Paths[SKLookup_Customer_NoMatch_Customer_EarlyArrivingFactsAdd]"
+              startId="Package\LoadFact\SKLookup_Customer.Outputs[NoMatch]"></path>
+            <path
+              endId="Package\LoadFact\UNION_Customer.Inputs[SKLookup_Customer_Match_UNION_Customer]"
+              name="SKLookup_Customer_Match_UNION_Customer"
+              refId="Package\LoadFact.Paths[SKLookup_Customer_Match_UNION_Customer]"
+              startId="Package\LoadFact\SKLookup_Customer.Outputs[Match]"></path>
+            <path
+              endId="Package\LoadFact\UNION_Customer.Inputs[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer]"
+              name="Customer_EarlyArrivingFactsAdd_Match_UNION_Customer"
+              refId="Package\LoadFact.Paths[Customer_EarlyArrivingFactsAdd_Match_UNION_Customer]"
+              startId="Package\LoadFact\Customer_EarlyArrivingFactsAdd.Outputs[Match]"></path>
+            <path
+              endId="Package\LoadFact\SKLookup_SalesTerritory.Inputs[UNION_Customer_Output_SKLookup_SalesTerritory]"
+              name="UNION_Customer_Output_SKLookup_SalesTerritory"
+              refId="Package\LoadFact.Paths[UNION_Customer_Output_SKLookup_SalesTerritory]"
+              startId="Package\LoadFact\UNION_Customer.Outputs[Output]"></path>
+            <path
+              endId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Inputs[SKLookup_SalesTerritory_NoMatch_SalesTerritory_EarlyArrivingFactsAdd]"
+              name="SKLookup_SalesTerritory_NoMatch_SalesTerritory_EarlyArrivingFactsAdd"
+              refId="Package\LoadFact.Paths[SKLookup_SalesTerritory_NoMatch_SalesTerritory_EarlyArrivingFactsAdd]"
+              startId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[NoMatch]"></path>
+            <path
+              endId="Package\LoadFact\UNION_SalesTerritory.Inputs[SKLookup_SalesTerritory_Match_UNION_SalesTerritory]"
+              name="SKLookup_SalesTerritory_Match_UNION_SalesTerritory"
+              refId="Package\LoadFact.Paths[SKLookup_SalesTerritory_Match_UNION_SalesTerritory]"
+              startId="Package\LoadFact\SKLookup_SalesTerritory.Outputs[Match]"></path>
+            <path
+              endId="Package\LoadFact\UNION_SalesTerritory.Inputs[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory]"
+              name="SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory"
+              refId="Package\LoadFact.Paths[SalesTerritory_EarlyArrivingFactsAdd_Match_UNION_SalesTerritory]"
+              startId="Package\LoadFact\SalesTerritory_EarlyArrivingFactsAdd.Outputs[Match]"></path>
+            <path
+              endId="Package\LoadFact\Dest.Inputs[UNION_SalesTerritory_Output_Dest]"
+              name="UNION_SalesTerritory_Output_Dest"
+              refId="Package\LoadFact.Paths[UNION_SalesTerritory_Output_Dest]"
+              startId="Package\LoadFact\UNION_SalesTerritory.Outputs[Output]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:CreationName=""
+      DTS:DTSID="{6D74B1CD-8CD5-4277-AF92-24F14E297692}"
+      DTS:From="Package\Truncate DestTable"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_Truncate DestTable_To_LoadFact"
+      DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate DestTable_To_LoadFact]"
+      DTS:To="Package\LoadFact"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+</DTS:Executable>

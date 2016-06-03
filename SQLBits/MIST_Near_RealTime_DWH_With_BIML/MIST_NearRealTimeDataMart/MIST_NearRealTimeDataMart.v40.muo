@@ -1,0 +1,6 @@
+<Configuration xmlns="http://schemas.varigence.com/Settings.xsd">
+    <Settings>
+        <StringSetting Name="OpenDocumentWindows">SN:Dim_Customer|TV:addedBiml\Packages\DimPackages.biml|SN:Fact_Sales|TV:addedBiml\Packages\FactPackages.biml|</StringSetting>
+        <StringSetting Name="NotificationStatus">[{"CreatedDateTime":"\/Date(1425122596957+0100)\/","Description":"","ExpirationDateTime":"\/Date(1427541796957+0100)\/","IsDismissed":false,"NotificationImportance":0,"SessionOnly":false,"Title":"Mist 3.2 is now available from Varigence.","UniqueId":"MistVersionAvailable_3.2"}]</StringSetting>
+    </Settings>
+</Configuration>

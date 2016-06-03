@@ -1,0 +1,5 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Connections>
+        <OleDbConnection Name="AdventureWorksDataMart2012" CreatePackageConfiguration="false" CreateInProject="true" ConnectionString="Provider=SQLNCLI11;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=AdventureWorksDataMart2012" />
+    </Connections>
+</Biml>

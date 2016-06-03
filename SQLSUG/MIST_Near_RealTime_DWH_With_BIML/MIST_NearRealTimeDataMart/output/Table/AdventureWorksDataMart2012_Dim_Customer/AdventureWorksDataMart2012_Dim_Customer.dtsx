@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable
+  DTS:CreationDate="01/31/2015 13:01:24"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="W8RRN"
+  DTS:CreatorName="rrn"
+  DTS:DTSID="{10EE5738-D1E2-4E37-85A3-284F5C20417A}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion=""
+  DTS:LocaleID="1030"
+  DTS:ObjectName="AdventureWorksDataMart2012_Dim_Customer"
+  DTS:ProtectionLevel="0"
+  DTS:refId="Package"
+  DTS:VersionBuild="0"
+  DTS:VersionGUID="{2D8F79B8-686E-4643-87A6-B071A9EFFF7C}"
+  DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DTSID="{100E7AE1-954C-4D67-A01F-9B9602622A20}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="__Table_DDL_Dim_Customer"
+      DTS:refId="Package\__Table_DDL_Dim_Customer"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="AdventureWorksDataMart2012"
+          SQLTask:SqlStatementSource="&#xA;                            SET ANSI_NULLS ON&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;&#xA;-------------------------------------------------------------------&#xA;IF EXISTS (SELECT * from sys.objects WHERE object_id = OBJECT_ID(N'[Dim].[Customer]') AND type IN (N'U'))&#xA;DROP TABLE [Dim].[Customer]&#xA;GO&#xA;&#xA;CREATE TABLE [Dim].[Customer]&#xA;(&#xA;-- Columns Definition&#xA; [AccountNumber] nvarchar(10) &#xA;, [CustomerBK] int &#xA;, [Customer_ID] bigint IDENTITY(1,1) NOT NULL &#xA;, [ValidTo] date &#xA;, [ValidFrom] date NOT NULL &#xA;, [IsRowCurrent] bit NOT NULL &#xA;&#xA;-- Constraints&#xA;,CONSTRAINT [Customer_PK] PRIMARY KEY CLUSTERED&#xA;(&#xA;  [Customer_ID] Asc) WITH(PAD_INDEX = OFF,IGNORE_DUP_KEY = OFF) ON &quot;default&quot;&#xA;&#xA;)&#xA;ON &quot;default&quot;&#xA;WITH (DATA_COMPRESSION = NONE)&#xA;GO&#xA;&#xA;-------------------------------------------------------------------&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;                        " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+</DTS:Executable>

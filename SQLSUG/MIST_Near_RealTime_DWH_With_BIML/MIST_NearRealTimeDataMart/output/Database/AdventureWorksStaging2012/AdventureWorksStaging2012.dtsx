@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable
+  DTS:CreationDate="01/31/2015 13:01:24"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="W8RRN"
+  DTS:CreatorName="rrn"
+  DTS:DTSID="{ED79CB97-7280-4632-8750-265651970F69}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion=""
+  DTS:LocaleID="1030"
+  DTS:ObjectName="AdventureWorksStaging2012"
+  DTS:ProtectionLevel="0"
+  DTS:refId="Package"
+  DTS:VersionBuild="0"
+  DTS:VersionGUID="{067C5D3D-C7CB-48ED-A4E0-D8380CBF711F}"
+  DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{BE517584-54C7-4A29-9430-2C82F42BA272}"
+      DTS:ObjectName="_CreateDB_AdventureWorksStaging2012"
+      DTS:refId="Package.ConnectionManagers[_CreateDB_AdventureWorksStaging2012]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=SQLNCLI11;Data Source=localhost;Integrated Security=SSPI"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DTSID="{987A67EA-6F3E-4085-BA80-CEC0A1462CB0}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="__Database_DDL_AdventureWorksStaging2012"
+      DTS:refId="Package\__Database_DDL_AdventureWorksStaging2012"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="_CreateDB_AdventureWorksStaging2012"
+          SQLTask:SqlStatementSource="&#xA;                            IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = N'AdventureWorksStaging2012')&#xA;      CREATE DATABASE AdventureWorksStaging2012&#xA;&#xA;                        " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+</DTS:Executable>

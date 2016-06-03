@@ -1,0 +1,280 @@
+﻿<#@ import namespace="System.Data" #>
+<#@ import namespace="Varigence.BIML.CoreLowerer.SchemaManagement" #>
+<#
+
+    var MetaConnection = (AstDbConnectionNode)RootNode.Connections["MetaData"];
+//Table metadata - each table becomes a seperate package 	
+    string TableMetaDataCommand =    					 
+							   "SELECT \n"
+							+   "ConnectionManager = ConnectionManager_Name,\n"
+							+   "TableId = Code,\n"    
+							+   "SchemaName = TableType,\n"    
+                            +   "TableName =  Name, \n"
+							+	"SourceTable = SourceTableName_Name, \n"
+							+   "SourceSqlQuery =  SourceSqlQuery, \n"
+							+   "DoDataConversion = ISNULL((SELECT TOP 1 1 FROM mdm.mdsDataMartTableColumns _M WHERE _M.Table_Code = M.Code AND _M.SourceColumnDataType <> ISNULL(_M.DestinationColumnDataType,_M.SourceColumnDataType)),0), \n"
+							+   "DoDerivedColumns = ISNULL((SELECT TOP 1 1 FROM mdm.mdsDataMartDerivedColumns _D WHERE _D.TableName_Code = M.Code),0), \n"
+							+   "DoLookup = ISNULL((SELECT TOP 1 1 FROM mdm.mdsDataMartLookupTables _L WHERE _L.Table_Code = M.Code),0) \n"
+                            +   "FROM mdm.mdsDataMartTables M \n"
+                            +   "WHERE IsActive = 1 and TableType = 'Dim';";
+							
+DataTable TableMetaData = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, TableMetaDataCommand);
+//Column metadata for DataConversions and SurrogateKeyLookups	
+    string ColumnMetaDataCommand =    					 
+							   "SELECT \n" 
+							+   "TableId = Table_Code,\n "  
+							+   "ColumnName = ISNULL(Name,SourceColumnName),\n"   
+							+   "SourceColumnName = replace(SourceColumnName, 'ID', 'BK'),\n" 
+							+   "DataType = upper(substring(ISNULL(DestinationColumnDataType,SourceColumnDataType), 1, 1)) + lower(substring(ISNULL(DestinationColumnDataType,SourceColumnDataType), 2, LEN(ISNULL(DestinationColumnDataType,SourceColumnDataType)))), \n"  
+							+   "DoDataConversion = ISNULL((SELECT TOP 1 1 FROM mdm.mdsDataMartTableColumns _M WHERE _M.Code = M.code AND _M.SourceColumnDataType <> ISNULL(_M.DestinationColumnDataType,_M.SourceColumnDataType)),0), \n"
+							+   "SourceColumnPrecision = IsNull(SourceColumnPrecision,0),\n"
+							+   "SCDType  = Case when IsKeyColumn = 1 then 'Key' else case SlowlyChangingChangeType when 1 then 'Update' When 2 then 'Historical' else 'Other' END END \n"
+                            +   "FROM mdm.mdsDataMartTableColumns M \n"
+                            +   "WHERE IsActive = 1"
+							+   "UNION \n"
+							+   "SELECT \n" 
+							+   "TableId = TableName_Code,\n "  
+							+   "ColumnName = Name,\n"   
+							+   "SourceColumnName = Name,\n" 
+							+   "DataType = upper(substring(DestinationColumnDataType, 1, 1)) + lower(substring(DestinationColumnDataType, 2, LEN(DestinationColumnDataType))), \n"  
+							+   "DoDataConversion = 0, \n"
+							+   "SourceColumnPrecision = 0,\n"
+							+   "SCDType  = case SlowlyChangingChangeType when 1 then 'Update' When 2 then 'Historical' else 'Other' END \n"
+                            +   "FROM mdm.mdsDataMartDerivedColumns M \n"
+                            +   "WHERE IsActive = 1"
+							+   "UNION \n"
+							+   "SELECT \n" 
+							+   "TableId = LookupTable_Code,\n "  
+							+   "ColumnName = LC.Name,\n"   
+							+   "SourceColumnName = LC.Name,\n" 
+							+   "DataType = upper(substring(LC.ColumnDataType, 1, 1)) + lower(substring(LC.ColumnDataType, 2, LEN(LC.ColumnDataType))), \n"  
+							+   "DoDataConversion = 0, \n"
+							+   "SourceColumnPrecision = 0,\n"
+							+   "SCDType  = case SlowlyChangingChangeType when 1 then 'Update' When 2 then 'Historical' else 'Other' END \n"
+                            +   "FROM mdm.mdsDataMartLookupTablesColumns LC INNER JOIN mdm.mdsDataMartLookupTables L ON L.CODE = LC.LookupTable_Code \n"
+                            +   "WHERE LC.IsActive = 1 and L.IsActive = 1 AND LC.ColumnType = 'Output';";
+							
+DataTable ColumnMetaDataTable = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, ColumnMetaDataCommand);
+//DerivedColumn metadata for business logic implementation
+    string DerivedColumnMetaDataCommand =    					 
+							   "SELECT \n" 
+							+   "TableId = TableName_Code,\n "  
+							+   "ColumnName = Name,\n" 
+							+   "CalculationFormula = CalculationFormula, \n"
+							+   "DataType = upper(substring(DestinationColumnDataType, 1, 1)) + lower(substring(DestinationColumnDataType, 2, LEN(DestinationColumnDataType))) \n"  
+                            +   "FROM mdm.mdsDataMartDerivedColumns M \n"
+                            +   "WHERE IsActive = 1;";
+							
+DataTable DerivedColumnMetaDataTable = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, DerivedColumnMetaDataCommand);
+//Lookup tables
+    string LookupTablesMetaDataCommand =    					 
+							   "SELECT \n" 
+							+   "LookupId = Code,\n "  
+							+   "TableId  = Table_Code,\n"
+							+   "ConnectionManager = ConnectionManager,\n"
+							+   "LookupSqlQuery  = ISNULL(LookupSqlQuery, 'SELECT * FROM '+ Name), \n"
+							+   "NoMatchBehavior = NoMatchBehavior\n"  
+                            +   "FROM mdm.mdsDataMartLookupTables L \n"
+                            +   "WHERE IsActive = 1;";
+							
+DataTable LookupMetaDataTable = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, LookupTablesMetaDataCommand);
+//Lookup tables columns
+    string LookupTablesColumnsMetaDataCommand =    					 
+							   "SELECT \n" 
+							+   "LookupId = LookupTable_Code,\n "  
+							+   "ColumnName  = Name,\n" 
+							+   "ColumnType  = ColumnType, \n"
+							+   "ColumnDataType = ColumnDataType\n"  
+                            +   "FROM mdm.mdsDataMartLookupTablesColumns LC \n"
+                            +   "WHERE IsActive = 1;";
+							
+DataTable LookupColumnsMetaDataTable = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, LookupTablesColumnsMetaDataCommand);
+#>
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Packages>
+        <#  foreach(DataRow TableRow in TableMetaData.Rows) {
+		//Column metadata		
+		  string  ColumnfilterExp = "TableID = '" + TableRow["TableID"] + "'";
+		  DataRow[] ColumnMetaData;
+		  ColumnMetaData = ColumnMetaDataTable.Select(ColumnfilterExp,null,DataViewRowState.CurrentRows); 
+
+		//DerivedColumnnMetaData
+		  string DerivedColumnnfilterExp = "TableID = '" + TableRow["TableID"] + "'";
+		  DataRow[] DerivedColumnMetaData;
+		  DerivedColumnMetaData = DerivedColumnMetaDataTable.Select(DerivedColumnnfilterExp,null,DataViewRowState.CurrentRows); 
+		  
+		//LookupTableMetaData
+		  string LookupfilterExp = "TableID = '" + TableRow["TableID"] + "'";
+		  DataRow[] LookupMetaData;
+		  LookupMetaData = LookupMetaDataTable.Select(LookupfilterExp,null,DataViewRowState.CurrentRows); 
+		  #>
+        <Package Name="<#=TableRow["SchemaName"] #>_<#=TableRow["TableName"] #>" ConstraintMode="Parallel" ProtectionLevel="EncryptSensitiveWithUserKey">
+            <Tasks>
+                <ExecuteSQL Name="Create DestMergeTable" ConnectionName="AdventureWorksDataMart2012">
+                    <DirectInput>EXEC Proc_CreateDestMergeTable <#=TableRow["SchemaName"] #>, <#=TableRow["TableName"] #></DirectInput>
+                </ExecuteSQL>
+                <Dataflow Name="LoadDimension">
+                    <PrecedenceConstraints>
+                        <Inputs>
+                            <Input OutputPathName="Create DestMergeTable.Output" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+                    <Transformations>
+                        <OleDbSource Name="Source" ConnectionName="<#=TableRow["ConnectionManager"] #>">
+                            <DirectInput>
+								<![CDATA[
+								<# if(TableRow["SourceSqlQuery"] != DBNull.Value) { #>
+								   TableRow["SourceSqlQuery"] #>
+								   <# }else {  #>
+								SELECT
+								1 as Dummy
+								<# foreach(DataRow SourceColumns in ColumnMetaData) { #>
+								,<#=SourceColumns["SourceColumnName"]#> AS <#=SourceColumns["ColumnName"]#>
+								<#} #>
+								FROM AdventureWorks.<#=TableRow["SourceTable"] #>
+								<#} #>
+								]]>
+								</DirectInput>
+                        </OleDbSource>
+						<#if((int)TableRow["DoDataConversion"] == 1) { #>
+                        <DataConversion Name="DataConversions">
+                            <Columns>
+								<# foreach(DataRow DataConversion in ColumnMetaData) { #>
+								<#if((int)DataConversion["DoDataConversion"] == 1) { #>
+                                <Column DataType="<#=DataConversion["DataType"] #>" SourceColumn="<#=DataConversion["SourceColumnName"] #>" TargetColumn="<#=DataConversion["ColumnName"] #>" />
+								<#} }#>
+                            </Columns>
+                        </DataConversion>
+						<#} #>
+						<#if((int)TableRow["DoLookup"] == 1) { #>
+						<#foreach(DataRow LookupTables in LookupMetaData) { 
+								//LookupTableColumnsMetaData
+								  string LookupColumnsfilterExp = "LookupId = '" + LookupTables["LookupId"] + "'";
+								  DataRow[] LookupColumnsMetaData;
+								  LookupColumnsMetaData = LookupColumnsMetaDataTable.Select(LookupColumnsfilterExp,null,DataViewRowState.CurrentRows); 
+								  #>
+						 <Lookup Name="Lookup <#=LookupTables["LookupId"] #>" OleDbConnectionName="<#=LookupTables["ConnectionManager"] #>" NoMatchBehavior="<#=LookupTables["NoMatchBehavior"] #>">
+                            <Annotations>
+                                <Annotation AnnotationType="Tag" Tag="GetOutsideColumnsLookup" />
+                            </Annotations>
+                        	<DirectInput>
+								<![CDATA[
+								  <#=LookupTables["LookupSqlQuery"] #>
+								]]>
+								</DirectInput>							
+                            <Inputs>
+							   <# 
+									//LookupTableInputColumnsMetaData
+									  string LookupColumnsInputfilterExp = "ColumnType = 'Input'";
+									  DataRow[] LookupColumnsInputMetaData;
+									  LookupColumnsInputMetaData = LookupColumnsMetaDataTable.Select(LookupColumnsInputfilterExp,null,DataViewRowState.CurrentRows); 
+									  #>								
+								<# foreach(DataRow InputColumns in LookupColumnsInputMetaData) { #>
+						       <Column SourceColumn="<#=InputColumns["ColumnName"] #>" TargetColumn="<#=InputColumns["ColumnName"] #>" />
+                        		<#} #>	
+                        </Inputs>
+                            <Outputs>
+							   <#
+									//LookupTableOutputColumnsMetaData
+									  string LookupColumnsOutputfilterExp = "ColumnType = 'Output'";
+									  DataRow[] LookupColumnsOutputMetaData;
+									  LookupColumnsOutputMetaData = LookupColumnsMetaDataTable.Select(LookupColumnsOutputfilterExp,null,DataViewRowState.CurrentRows); 
+									  #>
+								<# foreach(DataRow OutputColumns in LookupColumnsOutputMetaData) { #>
+                                <Column SourceColumn="<#=OutputColumns["ColumnName"] #>" TargetColumn="<#=OutputColumns["ColumnName"] #>" />
+								<#} #>
+                            </Outputs>
+                        </Lookup>
+					  
+						<#} #>
+						<#} #>
+						<#if((int)TableRow["DoDerivedColumns"] == 1) { #>
+                        <DerivedColumns Name="DerivedColumns">
+                            <Columns>
+								<# foreach(DataRow DerivedColumns in DerivedColumnMetaData) { #>
+                                <Column Name="<#=DerivedColumns["ColumnName"] #>" DataType="<#=DerivedColumns["DataType"] #>"><#=DerivedColumns["CalculationFormula"] #></Column>
+								<#} #>
+                            </Columns>
+                        </DerivedColumns>
+						<#} #>
+                        <Lookup Name="DimMergeLookup" OleDbConnectionName="AdventureWorksDataMart2012" NoMatchBehavior="RedirectRowsToNoMatchOutput">
+                            <Annotations>
+                                <Annotation AnnotationType="Tag" Tag="DimMergeLookup" />
+                            </Annotations>
+                        	<DirectInput>
+								
+								Select <#=TableRow["TableName"] #>_ID
+								<# foreach(DataRow LookupSql in ColumnMetaData) { #>
+								<#if((string)LookupSql["SCDType"] == "Key") { #>
+                               ,<#=LookupSql["ColumnName"] #>
+								<#}
+								
+								}#>	
+								FROM Dim.<#=TableRow["TableName"] #>
+								
+								</DirectInput>
+                            <Inputs>
+								<# foreach(DataRow Lookup in  ColumnMetaData) { #>
+								<#if((string)Lookup["SCDType"] == "Key") { #>
+						       <Column SourceColumn="<#=Lookup["ColumnName"] #>" TargetColumn="<#=Lookup["ColumnName"] #>" />
+                        		<#} }#>	
+                        </Inputs>
+                            <Outputs>
+                                <Column SourceColumn="<#=TableRow["TableName"] #>_ID" TargetColumn="<#=TableRow["TableName"] #>_ID" />
+                            </Outputs>
+                        </Lookup>
+                        <OleDbDestination Name="Dest_ToMerge" ConnectionName="AdventureWorksDataMart2012" ValidateExternalMetadata="false">
+							<InputPath OutputPathName="UNION_ErrorsToMerge.Output"/>
+                            <ExternalTableOutput Table="Etl.<#=TableRow["TableName"] #>" />
+                            <Columns>
+								<# foreach(DataRow Dest_ToMerge in ColumnMetaData) { #>
+                                <Column SourceColumn="<#=Dest_ToMerge["SourceColumnName"] #>" TargetColumn="<#=Dest_ToMerge["ColumnName"] #>" />
+                                <#} #>
+								<Column SourceColumn="<#=TableRow["TableName"] #>_ID" TargetColumn="<#=TableRow["TableName"] #>_ID" />
+								<Column SourceColumn="ValidTo" TargetColumn="ValidTo"/>
+								<Column SourceColumn="ValidFrom" TargetColumn="ValidFrom" />
+								<Column SourceColumn="IsRowCurrent" TargetColumn="IsRowCurrent"/>
+                            </Columns>
+                        </OleDbDestination>
+                        <OleDbDestination Name="Dest" ConnectionName="AdventureWorksDataMart2012">
+                            <InputPath OutputPathName="DimMergeLookup.NoMatch" />
+                        	<ExternalTableOutput Table="Dim.<#=TableRow["TableName"] #>" />
+                            <Columns>
+								<# foreach(DataRow Dest in ColumnMetaData) { #>
+                                <Column SourceColumn="<#=Dest["SourceColumnName"] #>" TargetColumn="<#=Dest["ColumnName"] #>" />
+                                <#} #>
+								<Column SourceColumn="ValidTo" TargetColumn="ValidTo"/>
+								<Column SourceColumn="ValidFrom" TargetColumn="ValidFrom" />
+								<Column SourceColumn="IsRowCurrent" TargetColumn="IsRowCurrent"/>
+                            </Columns>
+                        </OleDbDestination>
+						<UnionAll Name="UNION_ErrorsToMerge">
+							<InputPaths>
+								<InputPath OutputPathName="DimMergeLookup.Match" />
+								<InputPath OutputPathName="Dest.Error" />
+                            </InputPaths> 
+                        </UnionAll>
+                    </Transformations>
+                </Dataflow>
+                <ExecuteSQL Name="SCDMerge" ConnectionName="AdventureWorksDataMart2012">
+                    <PrecedenceConstraints>
+                        <Inputs>
+                            <Input OutputPathName="LoadDimension.Output" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+                	<DirectInput>EXEC Proc_GenericMerge @SourceSchema= 'ETL, @SourceTable=<#=TableRow["TableName"]#>, @TargetSchema='Dim', @TargetTable=<#=TableRow["TableName"]#></DirectInput>
+                </ExecuteSQL>
+				<ExecuteSQL Name="DropTempTable" ConnectionName="AdventureWorksDataMart2012">
+                    <PrecedenceConstraints>
+                        <Inputs>
+                            <Input OutputPathName="SCDMerge.Output" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+                	<DirectInput>Drop table etl.<#=TableRow["TableName"] #></DirectInput>
+                </ExecuteSQL>
+            </Tasks>
+        </Package>
+		<#} #>
+    </Packages>
+</Biml>

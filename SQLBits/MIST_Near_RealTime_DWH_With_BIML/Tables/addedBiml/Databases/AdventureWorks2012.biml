@@ -1,0 +1,5 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Databases>
+        <Database Name="AdventureWorks2012" ConnectionName="Source" />
+    </Databases>
+</Biml>

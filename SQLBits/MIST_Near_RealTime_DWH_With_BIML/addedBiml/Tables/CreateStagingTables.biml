@@ -1,0 +1,35 @@
+﻿<#@ template tier="1" language="C#" hostspecific="True" #>
+<#@ import namespace="System.Data" #> 
+<#@ import namespace="Varigence.BIML.CoreLowerer.SchemaManagement" #>
+<#
+    var MetaConnection = (AstDbConnectionNode)RootNode.Connections["MetaData"]; 
+	var SourceConnection = (AstDbConnectionNode)RootNode.Connections["AdventureWorks2012"];  
+    var TargetConnection = (AstDbConnectionNode)RootNode.Connections["AdventureWorksStaging2012"];  
+    string metadataCommand =    					 
+							   "SELECT \n" 
+							+   "SchemaName = Name,\n"    
+                            +   "TableName =  SourceTableName \n"
+                            +   "FROM mdm.mdsStaging\n"
+							+   "WHERE IsActive = 1";
+ 
+    var tableNamesToImport = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, metadataCommand).Rows.OfType<System.Data.DataRow>().Select(r => r[1].ToString());
+    var tableNodes = SourceConnection.GenerateTableNodes("Sales",tableNamesToImport, ImportOptions.ExcludeForeignKey | ImportOptions.ExcludeColumnDefault |ImportOptions.ExcludeCheckConstraint | ImportOptions.ExcludeIndex);
+#>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+	<Schemas>
+		<Schema Name="Sales" DatabaseName="AdventureWorks2012">  </Schema>
+    </Schemas>
+	<Tables>	  
+ 		 <# foreach(var table in tableNodes) { #> 
+	       <Table Name="<#=table.Name #>" SchemaName="AdventureWorksStaging2012.AdventureWorks" >
+			<Columns>
+				 <#  foreach(var column in table.Columns) { #>
+					<#=column.GetBiml().Replace("ID", "BK")#>
+				   <# } #>
+				<Column Name="Package" DataType="String" Length="68"/> 
+				<Column Name="LSN" DataType="Int64"/>
+            </Columns>
+	      </Table>   
+	      <# } #>  
+    </Tables>       
+</Biml>

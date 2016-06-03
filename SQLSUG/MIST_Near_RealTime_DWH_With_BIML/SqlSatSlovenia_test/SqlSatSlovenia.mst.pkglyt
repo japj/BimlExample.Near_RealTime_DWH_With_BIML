@@ -1,0 +1,14 @@
+Package1	Package1.DataflowTask1	572	223	518	426
+Package1	Package1.DataflowTask1.OLEDBSource1	117	22.38	300	100
+Package1	Package1.DataflowTask1.OLEDBDestination2	111	184.38	300	100
+Package1	Package1.ExecuteSQLTask2	631	89	300	100
+**********Compact Node Bounds
+**********Source Anchors
+Package1	Package1.DataflowTask1	Package1.DataflowTask1.Output
+Package1	Package1.DataflowTask1.OLEDBSource1	Package1.DataflowTask1.OLEDBSource1.Output
+Package1	Package1.DataflowTask1.OLEDBSource1	Package1.DataflowTask1.OLEDBSource1.Error
+Package1	Package1.DataflowTask1.OLEDBDestination2	Package1.DataflowTask1.OLEDBDestination2.Error
+Package1	Package1.ExecuteSQLTask2	Package1.ExecuteSQLTask2.Output
+**********Sink Anchors
+Package1	Package1.DataflowTask1	Package1.ExecuteSQLTask2.Output
+Package1	Package1.DataflowTask1.OLEDBDestination2	Package1.DataflowTask1.OLEDBSource1.Output

@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable
+  DTS:CreationDate="12/11/2014 22:38:07"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="W8RRN"
+  DTS:CreatorName="rrn"
+  DTS:DTSID="{CA787368-8822-432D-88D9-94EA30C6F158}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion=""
+  DTS:LocaleID="1030"
+  DTS:ObjectName="DownloadAdventureWorks_SalesTerritory"
+  DTS:refId="Package"
+  DTS:VersionBuild="0"
+  DTS:VersionGUID="{0C0F0BBD-D108-4472-A216-13DB5AAD901B}"
+  DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{697856E4-F55D-422E-8300-40562AF865B2}"
+      DTS:ObjectName="AdventureWorks2012"
+      DTS:refId="Package.ConnectionManagers[AdventureWorks2012]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=SQLNCLI11;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=AdventureWorks2012"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{3911CBE4-B387-4792-B4C7-C389D45F9B72}"
+      DTS:ObjectName="AdventureWorksStaging2012"
+      DTS:refId="Package.ConnectionManagers[AdventureWorksStaging2012]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=SQLNCLI11;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=AdventureWorksStaging2012"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DTSID="{213B6C82-DC54-47C4-8D42-2FEACE3A6F38}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate table"
+      DTS:refId="Package\Truncate table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="AdventureWorksStaging2012"
+          SQLTask:SqlStatementSource="&#xA;      Truncate Table [AdventureWorks].[SalesTerritory]&#xA;              " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:DTSID="{84C08894-8C57-464A-9116-2D1914F0809A}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Download_AdventureWorks_SalesTerritory"
+      DTS:refId="Package\Download_AdventureWorks_SalesTerritory"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          defaultBufferMaxRows="100000"
+          version="1">
+          <components>
+            <component
+              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              name="Retrieve Rows"
+              refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="7">
+              <connections>
+                <connection
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorks2012]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorks2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output
+                  name="Output"
+                  refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="TerritoryID"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[TerritoryID]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="50"
+                      name="Name"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[Name]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="3"
+                      name="CountryRegionCode"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[CountryRegionCode]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="50"
+                      name="Group"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[Group]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="SalesYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[SalesYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="SalesLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[SalesLastYear]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="CostYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[CostYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="CostLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[CostLastYear]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="guid"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[TerritoryID]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[TerritoryID]"
+                      name="TerritoryID"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[TerritoryID]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[Name]"
+                      length="50"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[Name]"
+                      name="Name"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[Name]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[CountryRegionCode]"
+                      length="3"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CountryRegionCode]"
+                      name="CountryRegionCode"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CountryRegionCode]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[Group]"
+                      length="50"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[Group]"
+                      name="Group"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[Group]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[SalesYTD]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[SalesYTD]"
+                      name="SalesYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[SalesYTD]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[SalesLastYear]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[SalesLastYear]"
+                      name="SalesLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[SalesLastYear]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[CostYTD]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CostYTD]"
+                      name="CostYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CostYTD]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[CostLastYear]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CostLastYear]"
+                      name="CostLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CostLastYear]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[rowguid]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[rowguid]"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[rowguid]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[ModifiedDate]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[TerritoryID]"
+                      name="TerritoryID"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[TerritoryID]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[Name]"
+                      name="Name"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[Name]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[CountryRegionCode]"
+                      name="CountryRegionCode"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[CountryRegionCode]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[Group]"
+                      name="Group"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[Group]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[SalesYTD]"
+                      name="SalesYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[SalesYTD]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[SalesLastYear]"
+                      name="SalesLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[SalesLastYear]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[CostYTD]"
+                      name="CostYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[CostYTD]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[CostLastYear]"
+                      name="CostLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[CostLastYear]"></outputColumn>
+                    <outputColumn
+                      dataType="guid"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[rowguid]"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[rowguid]"></outputColumn>
+                    <outputColumn
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+				 				   SELECT [TerritoryID], [Name], [CountryRegionCode], [Group], [SalesYTD], [SalesLastYear], [CostYTD], [CostLastYear], [rowguid], [ModifiedDate] FROM sales.SalesTerritory A 				   
+				                    </property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              name="Load Rows"
+              refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows"
+              usesDispositions="true"
+              version="4">
+              <connections>
+                <connection
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksStaging2012]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksStaging2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="RedirectRow"
+                  hasSideEffects="true"
+                  name="Retrieve Rows_Output_Load Rows"
+                  refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="TerritoryBK"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[TerritoryBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="50"
+                      name="Name"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[Name]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="3"
+                      name="CountryRegionCode"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[CountryRegionCode]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="50"
+                      name="Group"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[Group]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="SalesYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[SalesYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="SalesLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[SalesLastYear]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="CostYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[CostYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="CostLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[CostLastYear]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="guid"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="68"
+                      name="Package"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[Package]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="LSN"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[LSN]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[Name]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[Name]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].Columns[Name]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CountryRegionCode"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[CountryRegionCode]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CountryRegionCode]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].Columns[CountryRegionCode]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Group"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[Group]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[Group]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].Columns[Group]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="SalesYTD"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[SalesYTD]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[SalesYTD]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].Columns[SalesYTD]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="SalesLastYear"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[SalesLastYear]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[SalesLastYear]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].Columns[SalesLastYear]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="CostYTD"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[CostYTD]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CostYTD]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].Columns[CostYTD]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="CostLastYear"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[CostLastYear]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CostLastYear]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].Columns[CostLastYear]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="guid"
+                      cachedName="rowguid"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[rowguid]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[rowguid]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].Columns[rowguid]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[ModifiedDate]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows].Columns[ModifiedDate]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Outputs[Error]"
+                  synchronousInputId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[AdventureWorks].[SalesTerritory]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 100000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">100000</property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              name="Dest_RowbyRow"
+              refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow"
+              usesDispositions="true"
+              version="4">
+              <connections>
+                <connection
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksStaging2012]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksStaging2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Load Rows_Error_Dest_RowbyRow"
+                  refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="TerritoryBK"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[TerritoryBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="50"
+                      name="Name"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[Name]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="3"
+                      name="CountryRegionCode"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[CountryRegionCode]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="50"
+                      name="Group"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[Group]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="SalesYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SalesYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="SalesLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SalesLastYear]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="CostYTD"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[CostYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="CostLastYear"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[CostLastYear]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="guid"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="68"
+                      name="Package"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[Package]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="LSN"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[LSN]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[Name]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[Name]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[Name]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CountryRegionCode"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[CountryRegionCode]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CountryRegionCode]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[CountryRegionCode]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Group"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[Group]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[Group]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[Group]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="SalesYTD"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SalesYTD]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[SalesYTD]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[SalesYTD]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="SalesLastYear"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SalesLastYear]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[SalesLastYear]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[SalesLastYear]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="CostYTD"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[CostYTD]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CostYTD]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[CostYTD]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="CostLastYear"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[CostLastYear]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[CostLastYear]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[CostLastYear]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="guid"
+                      cachedName="rowguid"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[rowguid]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[rowguid]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[rowguid]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output].Columns[ModifiedDate]"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[ModifiedDate]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Outputs[Error]"
+                  synchronousInputId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[AdventureWorks].[SalesTerritory]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path
+              endId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Inputs[Retrieve Rows_Output_Load Rows]"
+              name="Retrieve Rows_Output_Load Rows"
+              refId="Package\Download_AdventureWorks_SalesTerritory.Paths[Retrieve Rows_Output_Load Rows]"
+              startId="Package\Download_AdventureWorks_SalesTerritory\Retrieve Rows.Outputs[Output]"></path>
+            <path
+              endId="Package\Download_AdventureWorks_SalesTerritory\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow]"
+              name="Load Rows_Error_Dest_RowbyRow"
+              refId="Package\Download_AdventureWorks_SalesTerritory.Paths[Load Rows_Error_Dest_RowbyRow]"
+              startId="Package\Download_AdventureWorks_SalesTerritory\Load Rows.Outputs[Error]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:CreationName=""
+      DTS:DTSID="{46F6ECDC-529D-49F2-A2CD-0AA27B41F84B}"
+      DTS:From="Package\Truncate table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_Truncate table_To_Download_AdventureWorks_SalesTerritory"
+      DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate table_To_Download_AdventureWorks_SalesTerritory]"
+      DTS:To="Package\Download_AdventureWorks_SalesTerritory"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1910544D-1AA7-4A6B-9060-946B86339F8F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="LSN">
+      <DTS:VariableValue
+        DTS:DataType="8">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A208029F-8D89-4621-A4B8-1EF44E934C37}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;EXEC Sales.CDC_SalesTerritory @last_synchronization_version=&quot; + @[User::LSN]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CDC_Extract">
+      <DTS:VariableValue
+        DTS:DataType="8">EXEC Sales.CDC_SalesTerritory @last_synchronization_version=0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+</DTS:Executable>

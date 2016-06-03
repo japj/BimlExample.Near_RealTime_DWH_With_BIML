@@ -1,0 +1,55 @@
+Dim_Customer	Dim_Customer.Create DestMergeTable	131	5	300	100
+Dim_Customer	Dim_Customer.LoadDimension	5	155	552	855
+Dim_Customer	Dim_Customer.LoadDimension.Source	5	5	300	100
+Dim_Customer	Dim_Customer.LoadDimension.DimMergeLookup	5	155	300	100
+Dim_Customer	Dim_Customer.LoadDimension.Dest_ToMerge	5	605	300	100
+Dim_Customer	Dim_Customer.LoadDimension.Dest	192	305	300	100
+Dim_Customer	Dim_Customer.LoadDimension.UNION_ErrorsToMerge	5	455	300	100
+Dim_Customer	Dim_Customer.SCDMerge	131	1060	300	100
+Dim_Customer	Dim_Customer.DropTempTable	131	1210	300	100
+Fact_Sales	Fact_Sales.Truncate DestTable	152.5	5	300	100
+Fact_Sales	Fact_Sales.LoadFact	5	155	595	1455
+Fact_Sales	Fact_Sales.LoadFact.Source	48	5	300	100
+Fact_Sales	Fact_Sales.LoadFact.DER Calculations	48	155	300	100
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_Customer	48	305	300	100
+Fact_Sales	Fact_Sales.LoadFact.Customer_EarlyArrivingFactsAdd	235	455	300	100
+Fact_Sales	Fact_Sales.LoadFact.UNION_Customer	48	605	300	100
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_SalesTerritory	48	755	300	100
+Fact_Sales	Fact_Sales.LoadFact.SalesTerritory_EarlyArrivingFactsAdd	235	905	300	100
+Fact_Sales	Fact_Sales.LoadFact.UNION_SalesTerritory	48	1055	300	100
+Fact_Sales	Fact_Sales.LoadFact.Dest	48	1205	300	100
+**********Compact Node Bounds
+**********Source Anchors
+Fact_Sales	Fact_Sales.Truncate DestTable	Fact_Sales.Truncate DestTable.Output
+Fact_Sales	Fact_Sales.LoadFact	Fact_Sales.LoadFact.Output
+Fact_Sales	Fact_Sales.LoadFact.Source	Fact_Sales.LoadFact.Source.Output
+Fact_Sales	Fact_Sales.LoadFact.Source	Fact_Sales.LoadFact.Source.Error
+Fact_Sales	Fact_Sales.LoadFact.DER Calculations	Fact_Sales.LoadFact.DER Calculations.Output
+Fact_Sales	Fact_Sales.LoadFact.DER Calculations	Fact_Sales.LoadFact.DER Calculations.Error
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_Customer	Fact_Sales.LoadFact.SKLookup_Customer.Match
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_Customer	Fact_Sales.LoadFact.SKLookup_Customer.NoMatch
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_Customer	Fact_Sales.LoadFact.SKLookup_Customer.Error
+Fact_Sales	Fact_Sales.LoadFact.Customer_EarlyArrivingFactsAdd	Fact_Sales.LoadFact.Customer_EarlyArrivingFactsAdd.Match
+Fact_Sales	Fact_Sales.LoadFact.Customer_EarlyArrivingFactsAdd	Fact_Sales.LoadFact.Customer_EarlyArrivingFactsAdd.NoMatch
+Fact_Sales	Fact_Sales.LoadFact.Customer_EarlyArrivingFactsAdd	Fact_Sales.LoadFact.Customer_EarlyArrivingFactsAdd.Error
+Fact_Sales	Fact_Sales.LoadFact.UNION_Customer	Fact_Sales.LoadFact.UNION_Customer.Output
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_SalesTerritory	Fact_Sales.LoadFact.SKLookup_SalesTerritory.Match
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_SalesTerritory	Fact_Sales.LoadFact.SKLookup_SalesTerritory.NoMatch
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_SalesTerritory	Fact_Sales.LoadFact.SKLookup_SalesTerritory.Error
+Fact_Sales	Fact_Sales.LoadFact.SalesTerritory_EarlyArrivingFactsAdd	Fact_Sales.LoadFact.SalesTerritory_EarlyArrivingFactsAdd.Match
+Fact_Sales	Fact_Sales.LoadFact.SalesTerritory_EarlyArrivingFactsAdd	Fact_Sales.LoadFact.SalesTerritory_EarlyArrivingFactsAdd.NoMatch
+Fact_Sales	Fact_Sales.LoadFact.SalesTerritory_EarlyArrivingFactsAdd	Fact_Sales.LoadFact.SalesTerritory_EarlyArrivingFactsAdd.Error
+Fact_Sales	Fact_Sales.LoadFact.UNION_SalesTerritory	Fact_Sales.LoadFact.UNION_SalesTerritory.Output
+Fact_Sales	Fact_Sales.LoadFact.Dest	Fact_Sales.LoadFact.Dest.Error
+**********Sink Anchors
+Fact_Sales	Fact_Sales.LoadFact	Fact_Sales.Truncate DestTable.Output
+Fact_Sales	Fact_Sales.LoadFact.DER Calculations	Fact_Sales.LoadFact.Source.Output
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_Customer	Fact_Sales.LoadFact.DER Calculations.Output
+Fact_Sales	Fact_Sales.LoadFact.Customer_EarlyArrivingFactsAdd	Fact_Sales.LoadFact.SKLookup_Customer.NoMatch
+Fact_Sales	Fact_Sales.LoadFact.UNION_Customer	Fact_Sales.LoadFact.SKLookup_Customer.Match
+Fact_Sales	Fact_Sales.LoadFact.UNION_Customer	Fact_Sales.LoadFact.Customer_EarlyArrivingFactsAdd.Match
+Fact_Sales	Fact_Sales.LoadFact.SKLookup_SalesTerritory	Fact_Sales.LoadFact.UNION_Customer.Output
+Fact_Sales	Fact_Sales.LoadFact.SalesTerritory_EarlyArrivingFactsAdd	Fact_Sales.LoadFact.SKLookup_SalesTerritory.NoMatch
+Fact_Sales	Fact_Sales.LoadFact.UNION_SalesTerritory	Fact_Sales.LoadFact.SKLookup_SalesTerritory.Match
+Fact_Sales	Fact_Sales.LoadFact.UNION_SalesTerritory	Fact_Sales.LoadFact.SalesTerritory_EarlyArrivingFactsAdd.Match
+Fact_Sales	Fact_Sales.LoadFact.Dest	Fact_Sales.LoadFact.UNION_SalesTerritory.Output

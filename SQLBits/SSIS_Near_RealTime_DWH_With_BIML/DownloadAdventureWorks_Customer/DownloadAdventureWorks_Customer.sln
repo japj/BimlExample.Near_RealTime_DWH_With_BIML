@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "DownloadAdventureWorks_Customer", "DownloadAdventureWorks_Customer.dtproj", "{20D2997B-83A6-4811-A840-66E2FCEEF43C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20D2997B-83A6-4811-A840-66E2FCEEF43C}.Development|Default.ActiveCfg = Development
+		{20D2997B-83A6-4811-A840-66E2FCEEF43C}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

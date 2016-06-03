@@ -1,0 +1,88 @@
+﻿<#@ template tier="2" language="C#" hostspecific="True" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="Varigence.BIML.CoreLowerer.SchemaManagement" #>
+<#  
+    var MetaConnection = (AstDbConnectionNode)RootNode.Connections["MetaData"]; 
+    string metadataCommand =    					 
+							   "SELECT \n" 
+							+   "TableName = Name,\n"  
+							+   "SourceTableName = SourceTableName,\n"
+							+   "TruncateBeforeLoad = cast(TruncateBeforeLoad as bit),\n"
+							+   "Deltaloaded = cast(Deltaloaded as bit)\n"
+                            +   "FROM mdm.mdsStaging\n"
+							+   "WHERE IsActive = 1";;
+							
+DataTable MetaData = ExternalDataAccess.GetDataTable(MetaConnection.ConnectionString, metadataCommand);
+#>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd"> 
+  <Packages>
+    <# foreach (var table in RootNode.Tables) { 
+		  
+		  string filterExp = "TableName = '" + table.Name + "'";
+		  DataRow[] Meta;
+		  Meta = MetaData.Select(filterExp,null,DataViewRowState.CurrentRows); 
+		  
+	  #> 
+
+	  <Package Name="Download<#=table.Schema.Name#>_<#=table.Name#>" ConstraintMode="Linear" ProtectionLevel="EncryptSensitiveWithUserKey">
+		  <Variables>
+			  <Variable DataType="String" Namespace="User" Name="LSN">0</Variable>
+			  <Variable DataType="String" Namespace="User" Name="CDC_Extract" EvaluateAsExpression="true">"EXEC Sales.CDC_<#=table.Name#> @last_synchronization_version=" + @[User::LSN]</Variable>
+          </Variables>
+      <Tasks>
+      <#foreach (DataRow Deltaload in Meta) { #>
+		  <#if ((bool)Deltaload["TruncateBeforeLoad"] == true) { #>		  
+		  <ExecuteSQL Name="Truncate table" ConnectionName="AdventureWorksStaging2012">
+			  <DirectInput>
+				  Truncate Table <#=table.SchemaQualifiedName#>
+              </DirectInput>
+          </ExecuteSQL>
+		  <# } #>
+		  <#if ((bool)Deltaload["DeltaLoaded"] == true) { #>
+		  <ExecuteSQL Name="GetLastLSN" ConnectionName="AdventureWorksStaging2012" ResultSet="SingleRow">
+			  <DirectInput>
+				  SELECT IsNull(max(LSN),0) AS MaxLSN FROM <#=table.Schema.Name#>.<#=Deltaload["TableName"]#>
+				   WHERE Package = 'Download<#=table.Schema.Name#>_<#=table.Name#>'
+              </DirectInput>
+			  <Results>
+				  <Result Name="0" VariableName="User.LSN"></Result>
+              </Results> 
+          </ExecuteSQL>
+		  <# } #>
+         <Dataflow Name="Download_<#=table.Schema.Name#>_<#=table.Name#>" DefaultBufferMaxRows="100000" RunInOptimizedMode="1"> 
+          <Transformations>
+            <OleDbSource Name="Retrieve Rows" ConnectionName="AdventureWorks2012" ValidateExternalMetadata="false">
+			<#if ((bool)Deltaload["DeltaLoaded"] == true) { #>	
+			<VariableInput VariableName="User.CDC_Extract"/>
+			<# } else { #>
+			<DirectInput>
+				 <# foreach (DataRow row in Meta){ #>		
+				   SELECT <#=table.GetColumnList(c => c.Name != "Package" && c.Name != "LSN").Replace("BK", "ID")#> FROM sales.<#=table.Name#> A 				   
+				    <# } #>
+                </DirectInput>
+			 <# } #>
+            </OleDbSource>
+			<#if ((bool)Deltaload["DeltaLoaded"] == true) { #>
+			<Audit Name="Audit">
+				<Audits>
+					<Audit AuditType="PackageName" Name="Package"/>
+ 		        </Audits>
+            </Audit>
+			<# }} #>
+            <OleDbDestination Name="Load Rows" ConnectionName="AdventureWorksStaging2012" BatchSize="100000" MaximumInsertCommitSize="100000">
+              <ExternalTableOutput Table="<#=table.SchemaQualifiedName#>" />
+			  <ErrorHandling ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" />
+            </OleDbDestination>
+        <!--If the bulk insert fails a row by row insert of the failling data is tried-->
+             <OleDbDestination Name="Dest_RowbyRow" ConnectionName="AdventureWorksStaging2012" UseFastLoadIfAvailable="false" >
+                  <InputPath OutputPathName="Load Rows.Error" />
+                  <ExternalTableOutput Table="<#=table.SchemaQualifiedName#>"/>
+		    </OleDbDestination>		  
+          </Transformations>
+        </Dataflow>	
+      </Tasks>
+    </Package>
+  <# } #>
+	
+ </Packages>
+</Biml>

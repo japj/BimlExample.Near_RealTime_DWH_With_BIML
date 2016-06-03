@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable
+  DTS:CreationDate="02/03/2015 18:19:17"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="W8RRN"
+  DTS:CreatorName="rrn"
+  DTS:DTSID="{DED4988E-37AC-4A5E-A24D-F01E67870808}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion=""
+  DTS:LocaleID="1030"
+  DTS:ObjectName="DownloadAdventureWorks_SalesOrderDetail"
+  DTS:refId="Package"
+  DTS:VersionBuild="0"
+  DTS:VersionGUID="{01AA1D74-C92F-455D-91B9-71F59959290B}"
+  DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9FDD0721-8265-4EF1-ABE3-E3A25127B456}"
+      DTS:ObjectName="AdventureWorks2012"
+      DTS:refId="Package.ConnectionManagers[AdventureWorks2012]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=SQLNCLI11;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=AdventureWorks2012"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{91D007F0-F53E-4707-BF73-56151D42066C}"
+      DTS:ObjectName="AdventureWorksStaging2012"
+      DTS:refId="Package.ConnectionManagers[AdventureWorksStaging2012]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=SQLNCLI11;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=AdventureWorksStaging2012"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DTSID="{9DFB1833-297F-47B3-A369-E6F9F0052FFD}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="GetLastLSN"
+      DTS:refId="Package\GetLastLSN"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="AdventureWorksStaging2012"
+          SQLTask:ResultType="ResultSetType_SingleRow"
+          SQLTask:SqlStatementSource="&#xA;      SELECT IsNull(max(LSN),0) AS MaxLSN FROM AdventureWorks.SalesOrderDetail&#xA;       WHERE Package = 'DownloadAdventureWorks_SalesOrderDetail'&#xA;              " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:DtsVariableName="User::LSN"
+            SQLTask:ResultName="0"></SQLTask:ResultBinding>
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:DTSID="{6838E6F1-06C9-4EC2-BB79-58AD46A81B15}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Download_AdventureWorks_SalesOrderDetail"
+      DTS:refId="Package\Download_AdventureWorks_SalesOrderDetail"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          defaultBufferMaxRows="100000"
+          version="1">
+          <components>
+            <component
+              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              name="Retrieve Rows"
+              refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="7">
+              <connections>
+                <connection
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorks2012]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorks2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output
+                  name="Output"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesOrderBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[SalesOrderBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesOrderDetailBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[SalesOrderDetailBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="25"
+                      name="CarrierTrackingNumber"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[CarrierTrackingNumber]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i2"
+                      name="OrderQty"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="ProductBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[ProductBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SpecialOfferBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[SpecialOfferBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="UnitPrice"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="UnitPriceDiscount"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[UnitPriceDiscount]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="numeric"
+                      name="LineTotal"
+                      precision="38"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[LineTotal]"
+                      scale="6"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="guid"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="SYS_CHANGE_OPERATION"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[SYS_CHANGE_OPERATION]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="LSN"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[LSN]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[SalesOrderBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SalesOrderBK]"
+                      name="SalesOrderBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SalesOrderBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[SalesOrderDetailBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      name="SalesOrderDetailBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[CarrierTrackingNumber]"
+                      length="25"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      name="CarrierTrackingNumber"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[OrderQty]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[OrderQty]"
+                      name="OrderQty"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[OrderQty]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[ProductBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[ProductBK]"
+                      name="ProductBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[ProductBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[SpecialOfferBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SpecialOfferBK]"
+                      name="SpecialOfferBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SpecialOfferBK]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[UnitPrice]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[UnitPriceDiscount]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[UnitPriceDiscount]"
+                      name="UnitPriceDiscount"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[UnitPriceDiscount]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[LineTotal]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[LineTotal]"
+                      name="LineTotal"
+                      precision="38"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[LineTotal]"
+                      scale="6"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[rowguid]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[rowguid]"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[rowguid]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[ModifiedDate]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[SYS_CHANGE_OPERATION]"
+                      length="1"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SYS_CHANGE_OPERATION]"
+                      name="SYS_CHANGE_OPERATION"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SYS_CHANGE_OPERATION]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].ExternalColumns[LSN]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[LSN]"
+                      name="LSN"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[LSN]"
+                      truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[SalesOrderBK]"
+                      name="SalesOrderBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[SalesOrderBK]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[SalesOrderDetailBK]"
+                      name="SalesOrderDetailBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[SalesOrderDetailBK]"></outputColumn>
+                    <outputColumn
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[CarrierTrackingNumber]"
+                      name="CarrierTrackingNumber"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[CarrierTrackingNumber]"></outputColumn>
+                    <outputColumn
+                      dataType="i2"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[OrderQty]"
+                      name="OrderQty"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[OrderQty]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[ProductBK]"
+                      name="ProductBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[ProductBK]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[SpecialOfferBK]"
+                      name="SpecialOfferBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[SpecialOfferBK]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[UnitPrice]"></outputColumn>
+                    <outputColumn
+                      dataType="cy"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[UnitPriceDiscount]"
+                      name="UnitPriceDiscount"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[UnitPriceDiscount]"></outputColumn>
+                    <outputColumn
+                      dataType="numeric"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[LineTotal]"
+                      name="LineTotal"
+                      precision="38"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[LineTotal]"
+                      scale="6"></outputColumn>
+                    <outputColumn
+                      dataType="guid"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[rowguid]"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[rowguid]"></outputColumn>
+                    <outputColumn
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[SYS_CHANGE_OPERATION]"
+                      name="SYS_CHANGE_OPERATION"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[SYS_CHANGE_OPERATION]"></outputColumn>
+                    <outputColumn
+                      dataType="i8"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[LSN]"
+                      name="LSN"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[LSN]"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::CDC_Extract</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{4FCE8297-9C65-40A9-9D60-00C5CC6BC283}"
+              contactInfo="Audit;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              name="Audit"
+              refId="Package\Download_AdventureWorks_SalesOrderDetail\Audit">
+              <inputs>
+                <input
+                  name="Retrieve Rows_Output_Audit"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Audit.Inputs[Retrieve Rows_Output_Audit]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  exclusionGroup="1"
+                  name="Output"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Audit.Outputs[Output]"
+                  synchronousInputId="Package\Download_AdventureWorks_SalesOrderDetail\Audit.Inputs[Retrieve Rows_Output_Audit]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="wstr"
+                      length="64"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Audit.Outputs[Output].Columns[Package]"
+                      name="Package"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Audit.Outputs[Output].Columns[Package]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies which audit item this column produces."
+                          name="LineageItemSelected"
+                          typeConverter="LineageItemSelected">2</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              name="Load Rows"
+              refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows"
+              usesDispositions="true"
+              version="4">
+              <connections>
+                <connection
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksStaging2012]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksStaging2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="RedirectRow"
+                  hasSideEffects="true"
+                  name="Audit_Output_Load Rows"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesOrderBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[SalesOrderBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesOrderDetailBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[SalesOrderDetailBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="25"
+                      name="CarrierTrackingNumber"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[CarrierTrackingNumber]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i2"
+                      name="OrderQty"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="ProductBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[ProductBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SpecialOfferBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[SpecialOfferBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="UnitPrice"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="UnitPriceDiscount"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[UnitPriceDiscount]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="numeric"
+                      name="LineTotal"
+                      precision="38"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[LineTotal]"
+                      scale="6"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="guid"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="68"
+                      name="Package"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[Package]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="LSN"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[LSN]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="64"
+                      cachedName="Package"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[Package]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Audit.Outputs[Output].Columns[Package]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[Package]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderBK"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[SalesOrderBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SalesOrderBK]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[SalesOrderBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderDetailBK"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[SalesOrderDetailBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[SalesOrderDetailBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="CarrierTrackingNumber"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[CarrierTrackingNumber]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[CarrierTrackingNumber]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i2"
+                      cachedName="OrderQty"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[OrderQty]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[OrderQty]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[OrderQty]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="ProductBK"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[ProductBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[ProductBK]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[ProductBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SpecialOfferBK"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[SpecialOfferBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SpecialOfferBK]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[SpecialOfferBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[UnitPrice]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[UnitPrice]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPriceDiscount"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[UnitPriceDiscount]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[UnitPriceDiscount]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[UnitPriceDiscount]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="numeric"
+                      cachedName="LineTotal"
+                      cachedPrecision="38"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[LineTotal]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[LineTotal]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[LineTotal]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="guid"
+                      cachedName="rowguid"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[rowguid]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[rowguid]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[rowguid]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[ModifiedDate]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[ModifiedDate]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="LSN"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].ExternalColumns[LSN]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[LSN]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows].Columns[LSN]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Outputs[Error]"
+                  synchronousInputId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[AdventureWorks].[SalesOrderDetail]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 100000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">100000</property>
+              </properties>
+            </component>
+            <component
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              name="Dest_RowbyRow"
+              refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow"
+              usesDispositions="true"
+              version="4">
+              <connections>
+                <connection
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksStaging2012]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksStaging2012]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Load Rows_Error_Dest_RowbyRow"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow]">
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesOrderBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SalesOrderBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SalesOrderDetailBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SalesOrderDetailBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="25"
+                      name="CarrierTrackingNumber"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[CarrierTrackingNumber]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i2"
+                      name="OrderQty"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="ProductBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[ProductBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i4"
+                      name="SpecialOfferBK"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SpecialOfferBK]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="UnitPrice"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="cy"
+                      name="UnitPriceDiscount"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[UnitPriceDiscount]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="numeric"
+                      name="LineTotal"
+                      precision="38"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[LineTotal]"
+                      scale="6"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="guid"
+                      name="rowguid"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="wstr"
+                      length="68"
+                      name="Package"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[Package]"></externalMetadataColumn>
+                    <externalMetadataColumn
+                      dataType="i8"
+                      name="LSN"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[LSN]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="64"
+                      cachedName="Package"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[Package]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Audit.Outputs[Output].Columns[Package]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[Package]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderBK"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SalesOrderBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SalesOrderBK]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[SalesOrderBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SalesOrderDetailBK"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SalesOrderDetailBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SalesOrderDetailBK]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[SalesOrderDetailBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="CarrierTrackingNumber"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[CarrierTrackingNumber]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[CarrierTrackingNumber]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[CarrierTrackingNumber]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i2"
+                      cachedName="OrderQty"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[OrderQty]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[OrderQty]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[OrderQty]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="ProductBK"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[ProductBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[ProductBK]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[ProductBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i4"
+                      cachedName="SpecialOfferBK"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[SpecialOfferBK]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[SpecialOfferBK]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[SpecialOfferBK]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[UnitPrice]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[UnitPrice]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="cy"
+                      cachedName="UnitPriceDiscount"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[UnitPriceDiscount]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[UnitPriceDiscount]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[UnitPriceDiscount]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="numeric"
+                      cachedName="LineTotal"
+                      cachedPrecision="38"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[LineTotal]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[LineTotal]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[LineTotal]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="guid"
+                      cachedName="rowguid"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[rowguid]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[rowguid]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[rowguid]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[ModifiedDate]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[ModifiedDate]"></inputColumn>
+                    <inputColumn
+                      cachedDataType="i8"
+                      cachedName="LSN"
+                      externalMetadataColumnId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].ExternalColumns[LSN]"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output].Columns[LSN]"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow].Columns[LSN]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Outputs[Error]"
+                  synchronousInputId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Outputs[Error].Columns[ErrorCode]"
+                      specialFlags="1"></outputColumn>
+                    <outputColumn
+                      dataType="i4"
+                      lineageId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      refId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Outputs[Error].Columns[ErrorColumn]"
+                      specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[AdventureWorks].[SalesOrderDetail]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path
+              endId="Package\Download_AdventureWorks_SalesOrderDetail\Audit.Inputs[Retrieve Rows_Output_Audit]"
+              name="Retrieve Rows_Output_Audit"
+              refId="Package\Download_AdventureWorks_SalesOrderDetail.Paths[Retrieve Rows_Output_Audit]"
+              startId="Package\Download_AdventureWorks_SalesOrderDetail\Retrieve Rows.Outputs[Output]"></path>
+            <path
+              endId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Inputs[Audit_Output_Load Rows]"
+              name="Audit_Output_Load Rows"
+              refId="Package\Download_AdventureWorks_SalesOrderDetail.Paths[Audit_Output_Load Rows]"
+              startId="Package\Download_AdventureWorks_SalesOrderDetail\Audit.Outputs[Output]"></path>
+            <path
+              endId="Package\Download_AdventureWorks_SalesOrderDetail\Dest_RowbyRow.Inputs[Load Rows_Error_Dest_RowbyRow]"
+              name="Load Rows_Error_Dest_RowbyRow"
+              refId="Package\Download_AdventureWorks_SalesOrderDetail.Paths[Load Rows_Error_Dest_RowbyRow]"
+              startId="Package\Download_AdventureWorks_SalesOrderDetail\Load Rows.Outputs[Error]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:CreationName=""
+      DTS:DTSID="{64F19C01-202A-4C23-AD00-6624F49FC162}"
+      DTS:From="Package\GetLastLSN"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_GetLastLSN_To_Download_AdventureWorks_SalesOrderDetail"
+      DTS:refId="Package.PrecedenceConstraints[Constraint_GetLastLSN_To_Download_AdventureWorks_SalesOrderDetail]"
+      DTS:To="Package\Download_AdventureWorks_SalesOrderDetail"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5962713E-A39F-4698-9407-2E9979F3FFD6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="LSN">
+      <DTS:VariableValue
+        DTS:DataType="8">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6F31FD46-2198-4C89-918C-37F4C17B7945}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;EXEC Sales.CDC_SalesOrderDetail @last_synchronization_version=&quot; + @[User::LSN]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CDC_Extract">
+      <DTS:VariableValue
+        DTS:DataType="8">EXEC Sales.CDC_SalesOrderDetail @last_synchronization_version=0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+</DTS:Executable>
